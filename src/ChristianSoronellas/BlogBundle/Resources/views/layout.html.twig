@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Christian Soronellas{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/style.css') }}" type="text/css" media="screen" />
+        <!--[if lt IE 8]>
+        <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/ie-fixes.css') }}" type="text/css" media="screen" />
+        <![endif]-->
+    </head>
+    
+    <body>
+        <div id="wrapper">	
+            <div id="header-wrapper">
+                <div id="nav">
+                    <ul>
+                        <li class="page_item page-item-22"><a href="#">Me</a></li>
+                    </ul>
+                </div>
+                <div id="header">
+                    <h1><a href="http://christian.soronellas.es">christian.soronellas</a></h1>
+                </div>
+            </div>
+            <hr />
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <hr />
+            <div id="sidebar">
+                <div class="section">
+                    <h2>About this blog</h2>
+                    <p>Description</p>
+                </div>
+                <div class="section">
+                    <h2>Search</h2>
+                    <p>Search form</p>
+                </div>
+            </div>
+            <hr />
+            <div id="footer">
+                <p>A theme by <a href="http://www.rodrigogalindez.com" rel="nofolow">Rodrigo Galindez</a></p>
+            </div>
+        </div>
+        {% if code is defined %}
+        <h2>Code behind this page</h2>
+        <div class="symfony-content">{{ code|raw }}</div>
+        {% endif %}
+        {% javascripts '@ChristianSoronellasBlogBundle/Resources/public/js/LAB.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript">
+            // <![CDATA[
+            $LAB
+            .script('https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+            .wait(function() {
+                $(window).load(function(event) {
+                    $('#nav li').each(function() {
+                        $(this).bind('mouseover', function() { this.className += ' sfhover'; })
+                               .bind('mouseout' , function() { this.className=this.className.replace(new RegExp(' sfhover\\b'), ''); });
+                    });
+                });
+            });
+            // ]]>
+        </script>
+    </body>
+</html>

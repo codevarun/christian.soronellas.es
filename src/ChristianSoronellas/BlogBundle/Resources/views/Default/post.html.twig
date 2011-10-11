@@ -1,0 +1,13 @@
+<div id="post-{{ post.id }}" class="post-{{ post.id }} post">
+    <div class="post-header">
+        <h2><a href="{{ path('post', { 'id': post.id }) }}" rel="bookmark" title="Permanent Link to {{ post.title|e }} ?>">{{ post.title|e }}</a></h2>
+        <p>by Christian Soronellas on {{ post.created_at|date('d/m/Y') }}</p>
+    </div>
+    {{ post.body|e('js') }}
+    <div class="post-meta">
+        <ul>
+            <li><a href="{{ path('post', { 'id': post.id }) }}#comments">Leave your comment</a></li>
+            <li>Share on <a href="http://twitter.com/home?status=Currently reading: {{ post.title|e }} {{ path('post', { 'id': post.id }) }}">Twitter</a>, <a href="http://www.facebook.com/share.php?u={{ path('post', { 'id': post.id }) }}&amp;t={{ post.title|e }}">Facebook</a>, <a href="http://del.icio.us/post?v=4;url={{ path('post', { 'id': post.id }) }}">Delicious</a>, <a href="http://digg.com/submit?url={{ path('post', { 'id': post.id }) }}">Digg</a>, <a href="http://www.reddit.com/submit?url={{ path('post', { 'id': post.id }) }}&amp;title={{ post.title|e }}">Reddit</a></li>
+        </ul>
+    </div>
+</div>
