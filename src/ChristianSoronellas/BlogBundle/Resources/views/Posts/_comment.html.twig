@@ -1,0 +1,10 @@
+<div id="comment-{{ comment.id }}" class="comment {{ cycle(['odd', 'even'], loop.index) }}{% if loop.index is even %} alt{% endif%} thread-{{ cycle(['odd', 'even'], loop.index) }} depth-1">
+    <div class="comment-avatar">
+        <img alt="" class="avatar avatar-54 photo" src="{{ gravatar(comment.email) }}" />
+        {# <img width="54" height="54" class="avatar avatar-54 photo" src="http://0.gravatar.com/avatar/e737184884e7ba71f9d7bbe1be06d4d5?s=54&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D54&amp;r=G" alt=""> #}
+    </div>
+    <div class="comment-body">
+        <div class="body">{{ comment.body }}</div>
+        <p class="comment-meta">by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}. <a href="/2010/11/20/zend-framework-y-doctrine-2/?replytocom=9#respond" class="comment-reply-link">Responder</a> <a title="Permanent Link for this comment" href="#comment-9">#</a></p>
+    </div>
+</div>
