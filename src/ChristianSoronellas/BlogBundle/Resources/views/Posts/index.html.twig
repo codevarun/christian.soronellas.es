@@ -1,0 +1,17 @@
+{% extends 'ChristianSoronellasBlogBundle::layout.html.twig' %}
+
+{% block title %}Christian Soronellas{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+    {% if posts|length > 0 %}
+    <ul>
+        {% for post in posts %}
+        {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no posts!</p>
+    {% endif %}
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Commons\Collections\ArrayCollection;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Post
@@ -34,6 +35,13 @@ class Post
      * @ORM\Column(name="body", type="text")
      */
     private $body;
+    
+    /**
+     * @var \Doctrine\Commons\Collections\ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private $comments;
 
     /**
      * @var datetime $created_at
@@ -138,5 +146,30 @@ class Post
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+    
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param ChristianSoronellas\BlogBundle\Entity\Comment $comments
+     */
+    public function addComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
     }
 }

@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 body {
 	font-family: Georgia, "Times New Roman", serif;
 	font-size: 62.5%;
-	background-image: url(images/bg.gif);
+	background-image: url(../../images/bg.gif);
 	background-repeat: repeat;
 	background-position: top left;
 	color: #444;
@@ -118,7 +118,7 @@ code {
 #nav {
 	margin: 0 0 15px 3px;
 	padding: 15px 0 0 0;
-	background: transparent url("images/l.gif") no-repeat left top;
+	background: transparent url("../../images/l.gif") no-repeat left top;
 	height: 1%;
 	clear: both;
 }
@@ -366,7 +366,7 @@ div.myclass strong {
 
 .post-meta {
 	padding: 10px 0 0 0;
-	background: transparent url("images/l.gif") no-repeat left top;
+	background: transparent url("../images/l.gif") no-repeat left top;
 	clear: both;	
 }
 
@@ -385,7 +385,7 @@ div.myclass strong {
 .comment-navigation {
 	margin: 0 0 40px 0;
 	padding: 10px 0 0 0;
-	background: transparent url("images/l.gif") no-repeat left top;
+	background: transparent url("../images/l.gif") no-repeat left top;
 	clear: both;
 	float: left;
 	height: 1%;
@@ -593,7 +593,7 @@ h3#reply-title {
 	font-family: Georgia, "Times New Roman", serif;
 	font-size: 1.3em;
 	font-weight: bold;
-	background: transparent url(images/bg-button.png) repeat-x 0 50%;
+	background: transparent url(../images/bg-button.png) repeat-x 0 50%;
 	background-color: #21759B;
 	border: 0 none;
 	color: #fff;
@@ -703,14 +703,14 @@ h3#reply-title {
 #sidebar .section {
 	margin: 0 0 40px 0;
 	padding: 15px 0;
-	background: transparent url(images/l.gif) no-repeat top left;
+	background: transparent url(../images/l.gif) no-repeat top left;
 }
 
 /* ------------------------------------------ [ Footer ] */
 
 #footer {
 	padding: 10px 0;
-	background: transparent url(images/l.gif) no-repeat top left;
+	background: transparent url(../images/l.gif) no-repeat top left;
 	clear: both;
 }
 

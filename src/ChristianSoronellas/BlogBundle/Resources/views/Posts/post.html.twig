@@ -1,0 +1,41 @@
+{% extends 'ChristianSoronellasBlogBundle::layout.html.twig' %}
+
+{% block title %}{{ post.title|e }}{% endblock %}
+
+{% block content %}
+{% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
+<div class="post-comments comment-form" id="respond">
+    <h2>Leave your comment</h2>
+    <form action="{{ path('post_comment', {'postId': post.id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type="submit" />
+    </form>
+    {#<form method="post" action="http://christian.soronellas.es/wp-comments-post.php">
+        <p>Logged in as <a href="http://christian.soronellas.es/wp-admin/profile.php">Christian Soronellas</a>. <a title="Log out of this account" href="http://christian.soronellas.es/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fchristian.soronellas.es%2F2011%2F10%2F09%2Fautoloading-en-zend-framework%2F&amp;_wpnonce=3a9416434d">Log out »</a></p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="comment">Comment</label>
+                    </th>
+                    <td>
+                        <textarea tabindex="4" rows="10" cols="100" id="comment" name="comment"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="submit" value="Submit" tabindex="5" id="submit" name="submit">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="comment_post_ID" value="377" name="comment_post_ID">
+        <input type="hidden" value="0" id="comment_parent" name="comment_parent">
+        <input type="hidden" value="d0d68c3953" name="_wp_unfiltered_html_comment" id="_wp_unfiltered_html_comment">
+        <p style="display: none;"><input type="hidden" value="978b287787" name="akismet_comment_nonce" id="akismet_comment_nonce"></p>
+        <input type="hidden" value="es" name="icl_comment_language">
+    </form>#}
+</div>
+{% endblock %}

@@ -56,8 +56,8 @@
             .wait(function() {
                 $(window).load(function(event) {
                     $('#nav li').each(function() {
-                        $(this).bind('mouseover', function() { this.className += ' sfhover'; })
-                               .bind('mouseout' , function() { this.className=this.className.replace(new RegExp(' sfhover\\b'), ''); });
+                        $(this).mouseover(function() { this.className += ' sfhover'; })
+                               .mouseout(function() { this.className=this.className.replace(new RegExp(' sfhover\\b'), ''); });
                     });
                 });
             });
