@@ -52,7 +52,6 @@ class PostsController extends Controller
      */
     public function commentAction(Post $post)
     {
-        $comment = $this->getRequest()->get('comment');
         $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
         if ($form->isValid()) {
             // OK! Proceed to save the new comment to the database!
