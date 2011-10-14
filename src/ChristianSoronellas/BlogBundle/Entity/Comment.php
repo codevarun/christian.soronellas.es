@@ -26,7 +26,7 @@ class Comment
     /**
      * @var text $body
      *
-     * Assert\NotBlank()
+     * @Assert\NotBlank()
      * @ORM\Column(name="body", type="text")
      */
     private $body;
@@ -34,7 +34,7 @@ class Comment
     /**
      * @var integer $state
      *
-     * Assert\NotBlank()
+     * @Assert\NotBlank()
      * @ORM\Column(name="state", type="integer")
      */
     private $state;
