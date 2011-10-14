@@ -3,7 +3,7 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Commons\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,9 +11,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\CommentRepository")
+ * @ORM\HasLifeCycleCallbacks
  */
 class Comment
 {
+    const STATE_AWAITING_MODERATION = 1;
+    const STATE_APPROVED = 2;
+    const STATE_REFUSED = 3;
+    
     /**
      * @var integer $id
      *
@@ -22,11 +27,39 @@ class Comment
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
+    /**
+     * The name of the commenter
+     * 
+     * @var string
+     * @Assert\NotBlank
+     * @ORM\Column(name="name", type="string")
+     */
+    private $name;
+    
+    /**
+     * The commenter's email
+     * 
+     * @var string
+     * @Assert\NotBlank
+     * @Assert\Email
+     * @ORM\Column(name="email", type="string")
+     */
+    private $email;
+    
+    /**
+     * The commenter's website
+     * 
+     * @var string
+     * @Assert\Url
+     * @ORM\Column(name="website", type="string", nullable="true")
+     */
+    private $website;
+    
     /**
      * @var text $body
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @ORM\Column(name="body", type="text")
      */
     private $body;
@@ -34,30 +67,27 @@ class Comment
     /**
      * @var integer $state
      *
-     * @Assert\NotBlank()
      * @ORM\Column(name="state", type="integer")
      */
     private $state;
 
     /**
      * @var \DateTime $created_at
-     * @Assert\DateTime()
+     * @Assert\DateTime
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
 
     /**
      * @var \DateTime $updated_at
-     *
-     * @Assert\DateTime()
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @Assert\DateTime
+     * @ORM\Column(name="updated_at", type="datetime", nullable="true")
      */
     private $updated_at;
     
     /**
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
      * 
-     * @Assert\Type
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="posts")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
@@ -67,7 +97,6 @@ class Comment
      * The comment's parent
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Comment $parentComment
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="comments")
      * @ORM\JoinColumn(name="comment_id", referencedColumnName="id") 
      */
@@ -237,5 +266,82 @@ class Comment
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+    
+    /**
+     * @ORM\prePersist
+     */
+    public function addCreatedAtBeforeSave()
+    {
+        $this->setState(static::STATE_AWAITING_MODERATION);
+        $this->setCreatedAt(new \DateTime());
+    }
+    
+    /**
+     * @ORM\preUpdate
+     */
+    public function updateUpdatedAtBeforeUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
     }
 }

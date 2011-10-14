@@ -162,6 +162,13 @@ class Post
     {
         return $this->comments;
     }
+    
+    public function getApprovedComments()
+    {
+        return array_filter($this->getComments()->toArray(), function($comment) {
+            return \ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState();
+        });
+    }
 
     /**
      * Add comments

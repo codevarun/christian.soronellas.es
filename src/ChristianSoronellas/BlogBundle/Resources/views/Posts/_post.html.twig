@@ -3,7 +3,7 @@
         <h2><a href="{{ path('post', { 'id': post.id }) }}" rel="bookmark" title="Permanent Link to {{ post.title|e }} ?>">{{ post.title|e }}</a></h2>
         <p>by Christian Soronellas on {{ post.createdAt|date('d/m/Y') }}</p>
     </div>
-    {{ post.body|e('js') }}
+    {{ post.body | raw }}
     <div class="post-meta">
         <ul>
             <li><a href="{{ path('post', { 'id': post.id }) }}#comments">Leave your comment</a></li>
@@ -11,3 +11,6 @@
         </ul>
     </div>
 </div>
+{% if post.comments|length > 0 %}
+{% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.comments } %}
+{% endif %}

@@ -7,7 +7,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ChristianSoronellas\BlogBundle\Form\CommentType;
+use ChristianSoronellas\BlogBundle\Entity\Post;
 
 class PostsController extends Controller
 {
@@ -25,28 +28,44 @@ class PostsController extends Controller
     }
     
     /**
-     * @param type $id
+     * Renders a post
      * 
+     * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
      * @Route("/post/{id}", name="post")
+     * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
      * @Template()
      */
-    public function postAction($id)
+    public function postAction(Post $post)
     {
-        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
         $form = $this->createForm(new CommentType());
-        
         return array('post' => $post, 'form' => $form->createView());
     }
     
     /**
-     * @param type $postId
+     * Adds a new comment to a given post
      * 
+     * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
      * @Route("/post/{id}/comment", name="post_comment")
+     * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
+     * @Template("ChristianSoronellasBlogBundle:Posts:post.html.twig")
      * @Method("post")
      */
-    public function commentAction($id)
+    public function commentAction(Post $post)
     {
-        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
-        $form = $this->createForm(new CommentType(), $data);
+        $comment = $this->getRequest()->get('comment');
+        $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
+        if ($form->isValid()) {
+            // OK! Proceed to save the new comment to the database!
+            $em = $this->getDoctrine()->getEntityManager();
+            $comment = $form->getData();
+            $comment->setPost($post);
+            $em->persist($comment);
+            $post->addComment($comment);
+            $em->persist($post);
+            $em->flush();
+            return $this->redirect($this->generateUrl('post', array('id' => $post->getId())));
+        }
+        
+        return array('post' => $post, 'form' => $form->createView());
     }
 }
