@@ -45,7 +45,6 @@ class PostsController extends Controller
     {
         $form = $this->createForm(new CommentType());
         if (null !== ($commentId = $this->getRequest()->get('commentTo'))) {
-            // $form->setValues(array('parentComment' => (int) $commentId));
             $comment = new Comment();
             $comment->setParentComment($this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Comment')->find((int) $commentId));
             $form->setData($comment);

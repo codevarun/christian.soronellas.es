@@ -70,3 +70,10 @@
 [GregwarFormBundle]
     git=git://github.com/Gregwar/FormBundle.git
     target=/bundles/Gregwar/FormBundle
+
+[doctrine-extensions]
+    git=git://github.com/l3pp4rd/DoctrineExtensions.git
+
+[StofDoctrineExtensionsBundle]
+    git=git://github.com/stof/StofDoctrineExtensionsBundle.git
+    target=/bundles/Stof/DoctrineExtensionsBundle

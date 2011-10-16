@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new Gregwar\FormBundle\GregwarFormBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new ChristianSoronellas\BlogBundle\ChristianSoronellasBlogBundle(),
         );
 

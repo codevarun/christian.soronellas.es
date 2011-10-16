@@ -46,6 +46,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            StofDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -63,3 +65,10 @@ ornicar_gravatar: ~
 
 # Gregwar FormBundle
 gregwar_form: ~
+
+# StofDoctrineExtensionsBundle
+stof_doctrine_extensions:
+    default_locale: es_ES
+    orm:
+        default:
+          sluggable: true
