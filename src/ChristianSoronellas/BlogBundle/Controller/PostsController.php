@@ -58,7 +58,7 @@ class PostsController extends Controller
      * Adds a new comment to a given post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/{id}/comment/{commentId}", name="post_comment", defaults={"commentId" = null})
+     * @Route("/{id}/comment", name="post_comment")
      * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
      * @Template("ChristianSoronellasBlogBundle:Posts:post.html.twig")
      * @Method("post")
