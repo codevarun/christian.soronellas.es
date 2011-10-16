@@ -3,7 +3,7 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Commons\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Post
@@ -30,7 +30,7 @@ class Post
     private $title;
 
     /**
-     * @var text $body
+     * @var string $body
      *
      * @ORM\Column(name="body", type="text")
      */
@@ -44,14 +44,14 @@ class Post
     private $comments;
 
     /**
-     * @var datetime $created_at
+     * @var \DateTime $created_at
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
 
     /**
-     * @var datetime $updated_at
+     * @var \DateTime $updated_at
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
@@ -91,7 +91,7 @@ class Post
     /**
      * Set body
      *
-     * @param text $body
+     * @param string $body
      */
     public function setBody($body)
     {
@@ -101,7 +101,7 @@ class Post
     /**
      * Get body
      *
-     * @return text 
+     * @return string 
      */
     public function getBody()
     {
@@ -111,7 +111,7 @@ class Post
     /**
      * Set created_at
      *
-     * @param datetime $createdAt
+     * @param \DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -121,7 +121,7 @@ class Post
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return \DateTime 
      */
     public function getCreatedAt()
     {
@@ -163,10 +163,27 @@ class Post
         return $this->comments;
     }
     
+    /**
+     * Returns the approved post comments
+     * 
+     * @return array
+     */
     public function getApprovedComments()
     {
         return array_filter($this->getComments()->toArray(), function($comment) {
             return \ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState();
+        });
+    }
+    
+    /**
+     * Returns all the post comments that has no parent
+     * 
+     * @return array 
+     */
+    public function getParentComments()
+    {
+        return array_filter($this->getComments()->toArray(), function($comment) {
+            return null === $comment->getParentComment();
         });
     }
 

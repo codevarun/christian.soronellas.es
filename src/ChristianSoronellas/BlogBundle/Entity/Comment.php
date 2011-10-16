@@ -5,6 +5,7 @@ namespace ChristianSoronellas\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Comment
@@ -343,5 +344,10 @@ class Comment
     public function updateUpdatedAtBeforeUpdate()
     {
         $this->setUpdatedAt(new \DateTime());
+    }
+    
+    public function __toString()
+    {
+        return $this->getId() . '';
     }
 }

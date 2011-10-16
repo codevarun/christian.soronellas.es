@@ -66,3 +66,7 @@
 [DoctrineFixturesBundle]
     git=http://github.com/symfony/DoctrineFixturesBundle.git
     target=/bundles/Symfony/Bundle/DoctrineFixturesBundle
+
+[GregwarFormBundle]
+    git=git://github.com/Gregwar/FormBundle.git
+    target=/bundles/Gregwar/FormBundle

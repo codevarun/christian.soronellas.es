@@ -11,6 +11,6 @@
         </ul>
     </div>
 </div>
-{% if post.comments|length > 0 %}
-{% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.comments } %}
+{% if showComments and post.parentComments|length > 0 %}
+{% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.parentComments, 'postId': post.id, 'depth': 1, 'totalComments': post.comments|length } %}
 {% endif %}

@@ -3,7 +3,7 @@
 {% block title %}{{ post.title|e }}{% endblock %}
 
 {% block content %}
-{% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
+{% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': true } %}
 <div class="post-comments comment-form" id="respond">
     <h2><a name="comments">Leave your comment</a></h2>
     <form action="{{ path('post_comment', {'id': post.id}) }}" method="post" novalidate="novalidate" {{ form_enctype(form) }}>

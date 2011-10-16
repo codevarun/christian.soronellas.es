@@ -17,4 +17,10 @@
         </service>
     </services>
     -->
+    
+    <services>
+        <service id="christiansoronellas.blogbundle.twig.extension.nl2p" class="ChristianSoronellas\BlogBundle\Twig\Extension\Nl2PExtension" public="false">
+            <tag name="twig.extension" />
+        </service>
+    </services>
 </container>

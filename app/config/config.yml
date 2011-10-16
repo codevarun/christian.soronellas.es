@@ -60,3 +60,6 @@ jms_security_extra:
     
 # Gravatar config
 ornicar_gravatar: ~
+
+# Gregwar FormBundle
+gregwar_form: ~

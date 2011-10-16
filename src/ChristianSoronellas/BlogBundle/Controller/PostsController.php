@@ -11,7 +11,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use ChristianSoronellas\BlogBundle\Form\CommentType;
 use ChristianSoronellas\BlogBundle\Entity\Post;
+use ChristianSoronellas\BlogBundle\Entity\Comment;
 
+/**
+ * The Posts controller
+ * 
+ * @Route("/post")
+ */
 class PostsController extends Controller
 {
     /**
@@ -31,13 +37,20 @@ class PostsController extends Controller
      * Renders a post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/post/{id}", name="post")
+     * @Route("/{id}", name="post")
      * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
      * @Template()
      */
     public function postAction(Post $post)
     {
         $form = $this->createForm(new CommentType());
+        if (null !== ($commentId = $this->getRequest()->get('commentTo'))) {
+            // $form->setValues(array('parentComment' => (int) $commentId));
+            $comment = new Comment();
+            $comment->setParentComment($this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Comment')->find((int) $commentId));
+            $form->setData($comment);
+        }
+        
         return array('post' => $post, 'form' => $form->createView());
     }
     
@@ -45,7 +58,7 @@ class PostsController extends Controller
      * Adds a new comment to a given post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/post/{id}/comment", name="post_comment")
+     * @Route("/{id}/comment/{commentId}", name="post_comment", defaults={"commentId" = null})
      * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
      * @Template("ChristianSoronellasBlogBundle:Posts:post.html.twig")
      * @Method("post")
