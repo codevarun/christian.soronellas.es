@@ -16,12 +16,11 @@ use ChristianSoronellas\BlogBundle\Entity\Comment;
 /**
  * The Posts controller
  * 
- * @Route("/post")
  */
 class PostsController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="root")
      * @Template()
      */
     public function indexAction()
@@ -37,12 +36,21 @@ class PostsController extends Controller
      * Renders a post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/{id}", name="post")
-     * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
+     * @Route("/{year}/{month}/{day}/{slug}", name="post")
      * @Template()
      */
-    public function postAction(Post $post)
+    public function postAction($year, $month, $day, $slug)
     {
+        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findBySlug($slug);
+        $date = new \DateTime();
+        $date->setDate($year, $month, $day);
+        $date->setTime(0, 0, 0);
+        $post->getCreatedAt()->setTime(0, 0, 0);
+        
+        if (!$post || $post->getCreatedAt() != $date) {
+            throw $this->createNotFoundException('The post doesn\'t exists!');
+        }
+        
         $form = $this->createForm(new CommentType());
         if (null !== ($commentId = $this->getRequest()->get('commentTo'))) {
             $comment = new Comment();
@@ -57,7 +65,7 @@ class PostsController extends Controller
      * Adds a new comment to a given post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/{id}/comment", name="post_comment")
+     * @Route("/post/{id}/comment", name="post_comment")
      * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
      * @Template("ChristianSoronellasBlogBundle:Posts:post.html.twig")
      * @Method("post")

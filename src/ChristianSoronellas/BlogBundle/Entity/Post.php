@@ -66,7 +66,15 @@ class Post
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
-
+    
+    /**
+     *
+     * @var \Doctrine\Commons\Collections\ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="posts_tags")
+     */
+    private $tags;
+    
     /**
      * Get id
      *
@@ -160,6 +168,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -224,5 +233,30 @@ class Post
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param ChristianSoronellas\BlogBundle\Entity\Tag $tag
+     */
+    public function addTag(\ChristianSoronellas\BlogBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+    
+    public function  __toString()
+    {
+        return $this->id . '';
     }
 }

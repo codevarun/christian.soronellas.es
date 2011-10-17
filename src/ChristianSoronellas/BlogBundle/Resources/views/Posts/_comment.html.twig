@@ -4,9 +4,9 @@
     </div>
     <div class="comment-body">
         <div class="body">{{ comment.body }}</div>
-        <p class="comment-meta">by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}.{% if depth == 1 %} <a href="{{ path('post', { 'id': postId }) }}?commentTo={{ comment.id }}#respond" class="comment-reply-link">Responder</a>{% endif %}</p>
+        <p class="comment-meta">by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}.{% if depth == 1 %} <a href="{{ post_url }}?commentTo={{ comment.id }}#respond" class="comment-reply-link">Responder</a>{% endif %}</p>
     </div>
     {% if comment.comments|length > 0 and depth <= 2 %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': comment.comments, 'postId': post.id, 'depth': (depth+1) } %}
+    {% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': comment.comments, 'post_url': post_url, 'depth': (depth+1) } %}
     {% endif %}
 </div>

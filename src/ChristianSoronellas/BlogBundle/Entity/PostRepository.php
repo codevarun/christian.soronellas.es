@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
+    /**
+     * Finds a post by its slug
+     * 
+     * @param string $slug
+     * @return ChristianSoronellas\BlogBundle\Entity\Post 
+     */
+    public function findBySlug($slug)
+    {
+        $posts = $this->findBy(array('slug' => $slug));
+        return array_shift($posts);
+    }
 }

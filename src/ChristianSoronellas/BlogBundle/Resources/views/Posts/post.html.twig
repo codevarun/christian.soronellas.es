@@ -1,6 +1,8 @@
 {% extends 'ChristianSoronellasBlogBundle::layout.html.twig' %}
 
-{% block title %}{{ post.title|e }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block keywords %}{{ parent() }}{% set tags = post.tags.toArray|join(',') %}{% if tags|length > 0 %},{{ tags }}{% endif %}{% endblock %}
 
 {% block content %}
 {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': true } %}

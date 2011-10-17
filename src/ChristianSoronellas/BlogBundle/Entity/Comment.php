@@ -252,11 +252,11 @@ class Comment
     /**
      * Add comments
      *
-     * @param ChristianSoronellas\BlogBundle\Entity\Comment $comments
+     * @param ChristianSoronellas\BlogBundle\Entity\Comment $comment
      */
-    public function addComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comments)
+    public function addComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comment)
     {
-        $this->comments[] = $comments;
+        $this->comments[] = $comment;
     }
 
     /**

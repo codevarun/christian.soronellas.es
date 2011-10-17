@@ -77,3 +77,7 @@
 [StofDoctrineExtensionsBundle]
     git=git://github.com/stof/StofDoctrineExtensionsBundle.git
     target=/bundles/Stof/DoctrineExtensionsBundle
+
+[GravatarBundle]
+    git=git://github.com/ornicar/GravatarBundle.git
+    target=/bundles/Ornicar/GravatarBundle

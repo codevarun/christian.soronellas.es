@@ -1,12 +1,12 @@
 {% if depth == 1 %}
 <div id="comments" class="post-comments">
-    <h2><a name="comments">{{ totalComments }} comments</a></h2>
+    <h2><a name="comments">{{ total_comments }} comments</a></h2>
     {% for comment in comments %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'postId': postId, 'depth': depth } %}
+    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'post_url': post_url, 'depth': depth } %}
     {% endfor %}
 </div>
 {% else %}
     {% for comment in comments %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'postId': postId, 'depth': depth } %}
+    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'post_url': post_url, 'depth': depth } %}
     {% endfor %}
 {% endif %}

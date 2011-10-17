@@ -11,21 +11,53 @@ class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load($manager)
     {
-        $comment = new ChristianSoronellas\BlogBundle\Entity\Comment();
-        $comment->setBody('TestComment1');
-        $comment->setEmail('theunic@gmail.com');
-        $comment->setName('TestAuthor1');
+        // Load target post
         $post = $manager->merge($this->getReference('post1'));
-        $comment->setPost($post);
-        $post->addComment($comment);
         
-        $manager->persist($comment);
+        // First comment - create & persist
+        $comment1 = new Comment();
+        $comment1->setBody('TestComment1');
+        $comment1->setEmail('theunic@gmail.com');
+        $comment1->setName('TestAuthor1');
+        $comment1->setPost($post);
+        $post->addComment($comment1);
+        
+        $manager->persist($comment1);
+        $manager->persist($post);
+        $manager->flush();
+        
+        sleep(1);
+        
+        $comment2 = new Comment();
+        $comment2->setBody('TestComment2');
+        $comment2->setEmail('theunic@gmail.com');
+        $comment2->setName('TestAuthor2');
+        $comment2->setPost($post);
+        $post->addComment($comment2);
+        
+        $manager->persist($comment2);
+        $manager->persist($post);
+        $manager->flush();
+        
+        sleep(1);
+        
+        $subcomment = new Comment();
+        $subcomment->setBody('TestSubcomment');
+        $subcomment->setEmail('theunic@gmail.com');
+        $subcomment->setName('TestAuthor3');
+        $subcomment->setPost($post);
+        $post->addComment($subcomment);
+        $comment2->addComment($subcomment);
+        $subcomment->setParentComment($comment2);
+        
+        $manager->persist($subcomment);
+        $manager->persist($comment2);
         $manager->persist($post);
         $manager->flush();
     }
     
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }

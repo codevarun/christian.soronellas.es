@@ -1,3 +1,0 @@
-[submodule "vendor/bundles/Ornicar/GravatarBundle"]
-	path = vendor/bundles/Ornicar/GravatarBundle
-	url = git://github.com/ornicar/GravatarBundle.git
