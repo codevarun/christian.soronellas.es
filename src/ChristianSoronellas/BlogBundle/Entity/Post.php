@@ -3,12 +3,13 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Post
  *
- * @ORM\Table()
+ * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\PostRepository")
  */
 class Post
@@ -56,7 +57,15 @@ class Post
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
-
+    
+    /**
+     * The slug for this post
+     * 
+     * @var string
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
     /**
      * Get id
@@ -195,5 +204,25 @@ class Post
     public function addComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comments)
     {
         $this->comments[] = $comments;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

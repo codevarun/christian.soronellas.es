@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ExecutionContext;
 /**
  * ChristianSoronellas\BlogBundle\Entity\Comment
  *
- * @ORM\Table()
+ * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\CommentRepository")
  * @ORM\HasLifeCycleCallbacks
  */

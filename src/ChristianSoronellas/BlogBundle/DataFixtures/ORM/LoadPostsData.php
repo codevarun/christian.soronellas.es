@@ -1,12 +1,13 @@
 <?php
 
 // src/Acme/HelloBundle/DataFixtures/ORM/LoadPostsData.php
-namespace Acme\HelloBundle\DataFixtures\ORM;
+namespace ChristianSoronellas\BlogBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use ChristianSoronellas\BlogBundle\Entity\Post;
 
-class LoadPostsData implements FixtureInterface
+class LoadPostsData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load($manager)
     {
@@ -19,6 +20,8 @@ class LoadPostsData implements FixtureInterface
         $manager->persist($post);
         $manager->flush();
         
+        $this->addReference('post1', $post);
+        
         sleep(1);
         
         $post = new Post();
@@ -29,5 +32,12 @@ class LoadPostsData implements FixtureInterface
 
         $manager->persist($post);
         $manager->flush();
+        
+        $this->addReference('post2', $post);
+    }
+    
+    public function getOrder()
+    {
+        return 1;
     }
 }
