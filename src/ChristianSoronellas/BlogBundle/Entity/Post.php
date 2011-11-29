@@ -68,7 +68,8 @@ class Post
     private $slug;
     
     /**
-     *
+     * The post tags
+     * 
      * @var \Doctrine\Commons\Collections\ArrayCollection
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(name="posts_tags")

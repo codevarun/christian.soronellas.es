@@ -35,7 +35,6 @@ class PostsController extends Controller
     /**
      * Renders a post
      * 
-     * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
      * @Route("/{year}/{month}/{day}/{slug}", name="post")
      * @Template()
      */
