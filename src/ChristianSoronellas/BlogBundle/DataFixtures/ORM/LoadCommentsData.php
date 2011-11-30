@@ -19,6 +19,7 @@ class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterfac
         $comment1->setBody('TestComment1');
         $comment1->setEmail('theunic@gmail.com');
         $comment1->setName('TestAuthor1');
+        $comment1->setState(Comment::STATE_APPROVED);
         $comment1->setPost($post);
         $post->addComment($comment1);
         
@@ -32,6 +33,7 @@ class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterfac
         $comment2->setBody('TestComment2');
         $comment2->setEmail('theunic@gmail.com');
         $comment2->setName('TestAuthor2');
+        $comment2->setState(Comment::STATE_APPROVED);
         $comment2->setPost($post);
         $post->addComment($comment2);
         
@@ -49,6 +51,7 @@ class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterfac
         $post->addComment($subcomment);
         $comment2->addComment($subcomment);
         $subcomment->setParentComment($comment2);
+        $subcomment->setState(Comment::STATE_APPROVED);
         
         $manager->persist($subcomment);
         $manager->persist($comment2);

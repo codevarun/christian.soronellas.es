@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"post" = "Post"})
+ * @ORM\DiscriminatorMap({"post" = "Post", "page" = "Page"})
  */
 class Content
 {

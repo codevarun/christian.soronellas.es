@@ -334,7 +334,11 @@ class Comment
      */
     public function addCreatedAtBeforeSave()
     {
-        $this->setState(static::STATE_AWAITING_MODERATION);
+        // If the state hasn't been set before
+        if (null === $this->getState()) {
+            $this->setState(static::STATE_AWAITING_MODERATION);
+        }
+        
         $this->setCreatedAt(new \DateTime());
     }
     

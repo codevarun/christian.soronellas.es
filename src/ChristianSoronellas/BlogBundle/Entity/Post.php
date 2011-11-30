@@ -79,7 +79,7 @@ class Post extends Content
     public function getParentComments()
     {
         return array_filter($this->getComments()->toArray(), function($comment) {
-            return null === $comment->getParentComment();
+            return null === $comment->getParentComment() && (\ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $coment->getState());
         });
     }
 
