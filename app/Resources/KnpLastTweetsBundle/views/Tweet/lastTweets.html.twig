@@ -1,0 +1,9 @@
+{% if tweets %}
+<ul class="tweets">
+{% for tweet in tweets %}
+    <li>{{ tweet.text|knp_tweet_urlize }}</li>
+{% endfor %}
+</ul>
+{% else %}
+No tweets
+{% endif %}

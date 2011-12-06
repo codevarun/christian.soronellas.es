@@ -35,6 +35,9 @@ class Tag
      */
     private $posts;
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -90,6 +93,11 @@ class Tag
         return $this->posts;
     }
     
+    /**
+     * Render the instance as a string
+     * 
+     * @return string
+     */
     public function __toString()
     {
         return $this->getTag();

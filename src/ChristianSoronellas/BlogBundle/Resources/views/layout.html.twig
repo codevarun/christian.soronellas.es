@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" value="{% block keywords %}christian soronellas,php,zend framework, zendframework{% endblock %}" />
-        <title>{% block title %}Christian Soronellas{% endblock %}</title>
+        <title>{% block title %}Christian Soronellas Web Architect{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/style.css') }}" type="text/css" media="screen" />
         <!--[if lt IE 8]>
         <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/ie-fixes.css') }}" type="text/css" media="screen" />
@@ -15,12 +15,12 @@
         <div id="wrapper">	
             <div id="header-wrapper">
                 <div id="nav">
-                    <ul>
-                        <li class="page_item page-item-22"><a href="#">Me</a></li>
-                    </ul>
+                    {% render 'ChristianSoronellasBlogBundle:Pages:pages' %}
                 </div>
                 <div id="header">
-                    <a class="logo" href="{{ url('root') }}">christian.soronellas</a>
+                    {% block headTitle %}
+                    <a class="logo" href="{{ url('root') }}">Christian Soronellas Web Architect</a>
+                    {% endblock %}
                 </div>
             </div>
             <hr />
@@ -30,13 +30,27 @@
             </div>
             <hr />
             <div id="sidebar">
-                <div class="section">
-                    <h2>About this blog</h2>
-                    <p>Description</p>
+                <div class="certifications">
+                    <a style="border:none;" href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend certified engineer PHP 5.3" src="{{ asset('bundles/christiansoronellasblog/images/zce-php5-3-logo.gif') }}"></a>&nbsp;
+                    <a style="border:none;" href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend framework certified engineer" src="{{ asset('bundles/christiansoronellasblog/images/zf-zce-logo.gif') }}"></a>
+                </div>
+                <div class="section first">
+                    <h2>About me</h2>
+                    <p>PHP 5.3 & Zend Framework certified. Agile enthusiast. Proud user of Zend Framework (and at times Symfony2). I like to feel as a ninja when coding PHP and as a samurai when coding Zend Framework. At my free times I like to go running and to do windsurf & surfing. Let's PHP? :)</p>
                 </div>
                 <div class="section">
-                    <h2>Search</h2>
-                    <p>Search form</p>
+                    <h2>Site friends</h2>
+                    <ul class="xoxo blogroll">
+                        <li><a href="http://blog.inspiroh.com/" rel="friend met co-worker colleague" title="Equilibrio y control en el desarrollo web" target="_blank">Front-end Zend</a></li>
+                        <li><a href="http://ricardclau.com" rel="friend met co-worker colleague" target="_blank">Ricard Clau</a></li>
+                        <li><a href="http://rubengarrido.cat">Ruben Garrido</a></li>
+                        <li><a href="http://shesinpanties.tumblr.com" rel="friend met co-worker" target="_blank">shesinpanties</a></li>
+                        <li><a href="http://blog.quepimquepam.com/" rel="friend met co-worker colleague external" target="_blank">Blog quepimquepam.com</a></li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2>MY @TWITTER</h2>
+                    {% render "KnpLastTweetsBundle:Twitter:lastTweets" with {'username': 'theUniC', 'age': 5}, {'standalone': true} %}
                 </div>
             </div>
             <hr />
@@ -53,8 +67,11 @@
         {% endjavascripts %}
         <script type="text/javascript">
             // <![CDATA[
+            var uvOptions = {};
+            
             $LAB
             .script('https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+            .script('http://widget.uservoice.com/yxgPNGS9jhCcT6ukla3j7w.js')
             .wait(function() {
                 $(window).load(function(event) {
                     $('#nav li').each(function() {

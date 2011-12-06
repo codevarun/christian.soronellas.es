@@ -12,9 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class PageRepository extends EntityRepository
 {
-    public function getTree()
-    {
-        // Generate the tree
-        
-    }
+
 }

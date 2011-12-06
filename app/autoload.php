@@ -19,6 +19,7 @@ $loader->registerNamespaces(array(
     'Gregwar'          => __DIR__.'/../vendor/bundles',
     'Stof'             => __DIR__.'/../vendor/bundles',
     'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
+    'Knp\Bundle'       => __DIR__.'/../vendor/bundles',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

@@ -1,0 +1,5 @@
+<ul>
+    {% for page in pages %}
+    <li class="page_item page-item-{{ page.id }}"><a href="{{ path('page', { 'slug': page.slug }) }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>

@@ -75,12 +75,17 @@ class PostsController extends Controller
         if ($form->isValid()) {
             // OK! Proceed to save the new comment to the database!
             $em = $this->getDoctrine()->getEntityManager();
+            
             $comment = $form->getData();
             $comment->setPost($post);
+            
             $em->persist($comment);
+            
             $post->addComment($comment);
+            
             $em->persist($post);
             $em->flush();
+            
             return $this->redirect($this->generateUrl('post', array('id' => $post->getId())));
         }
         

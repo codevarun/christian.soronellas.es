@@ -2,13 +2,13 @@
 {% set post_comments_num = post.approvedComments|length %}
 <div id="post-{{ post.id }}" class="post-{{ post.id }} post">
     <div class="post-header">
-        <h1><a href="{{ post_url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">{{ post.title }}</a></h1>
+        {% if showComments %}<h1>{% else %}<h2>{% endif %}<a href="{{ post_url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">{{ post.title }}</a>{% if showComments %}</h1>{% else %}</h2>{% endif %}
         <p>by Christian Soronellas on {{ post.createdAt|date('d/m/Y') }}</p>
     </div>
     {{ post.body | raw }}
     <div class="post-meta">
         <ul>
-            <li><a href="{{ post_url }}#comments">{% if post_comments_num > 0 %}{% transchoice post_comments_num %}{0} comments|{1} comment|]1,Inf] %post_comments_num% comments{% endtranschoice %}{% else %}Leave your comment{% endif %}</a></li>
+            <li><a href="{{ post_url }}#comments">{% if post_comments_num > 0 %}{% transchoice post_comments_num %}{0} comments|{1} comment|]1,Inf] %post_comments_num% comments{% endtranschoice %}{% else %}Leave your comment{% endif %}</a>{% if post.tags|length > 0 %} • Tagged as: HOLA!{% endif %}</li>
             <li>Share on <a href="http://twitter.com/home?status=Currently reading: {{ post.title }} {{ post_url }}">Twitter</a>, <a href="http://www.facebook.com/share.php?u={{ post_url }}&amp;t={{ post.title }}">Facebook</a>, <a href="http://del.icio.us/post?v=4;url={{ post_url }}">Delicious</a>, <a href="http://digg.com/submit?url={{ post_url }}">Digg</a>, <a href="http://www.reddit.com/submit?url={{ post_url }}&amp;title={{ post.title|e }}">Reddit</a></li>
         </ul>
     </div>
