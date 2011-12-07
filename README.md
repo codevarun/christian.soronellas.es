@@ -6,10 +6,10 @@ based on Symfony2 Standard Edition.
 
 To install follow the instructions below
 
-```shell
+```sh
 git clone git://github.com/theUniC/christian.soronellas.es.git
 cp app/config/parameters.ini.dist app/config/parameters.ini
 php bin/vendors install
-```shell
+```
 
 Now you only will have to configure your parameters.ini accordingly to your database config.
