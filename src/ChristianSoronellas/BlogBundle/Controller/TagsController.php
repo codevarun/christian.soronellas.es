@@ -37,10 +37,14 @@ class TagsController extends Controller
     {
         $tag = $this->getDoctrine()
                     ->getRepository('ChristianSoronellasBlogBundle:Tag')
-                    ->findBySlug($slug);
+                    ->findOneBySlug($slug);
+
+		if (!$tag) {
+			throw $this->createNotFoundException('The specified tag doesn\'t exists!');
+		}
         
         return array(
-            'tag' => array_shift($tag)
+            'tag' => $tag
         );
     }
 }
