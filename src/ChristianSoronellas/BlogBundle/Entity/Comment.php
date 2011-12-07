@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContext;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Comment
@@ -76,6 +77,7 @@ class Comment
      * @var \DateTime $created_at
      * @Assert\DateTime
      * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
@@ -83,6 +85,7 @@ class Comment
      * @var \DateTime $updated_at
      * @Assert\DateTime
      * @ORM\Column(name="updated_at", type="datetime", nullable="true")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
     
@@ -332,22 +335,10 @@ class Comment
     /**
      * @ORM\prePersist
      */
-    public function addCreatedAtBeforeSave()
+    public function beforeSave()
     {
         // If the state hasn't been set before
-        if (null === $this->getState()) {
-            $this->setState(static::STATE_AWAITING_MODERATION);
-        }
         
-        $this->setCreatedAt(new \DateTime());
-    }
-    
-    /**
-     * @ORM\preUpdate
-     */
-    public function updateUpdatedAtBeforeUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime());
     }
     
     public function __toString()
