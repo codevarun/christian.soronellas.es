@@ -2,4 +2,5 @@
     {% for page in pages %}
     <li class="page_item page-item-{{ page.id }}"><a href="{{ path('page', { 'slug': page.slug }) }}">{{ page.title }}</a></li>
     {% endfor %}
+    <li class="page_item page-item-contact"><a href="{{ path('contact') }}">Contact me!</a></li>
 </ul>

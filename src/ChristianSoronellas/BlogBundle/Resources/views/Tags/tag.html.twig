@@ -7,8 +7,9 @@
 {% block content_header '' %}
 
 {% block content %}
-    {% if posts|length > 0 %}    
-        {% for post in posts %}
+    {% if tag.posts|length > 0 %}
+        <h3 class="tag-title">Posts under tag "{{ tag.tag }}"</h3>
+        {% for post in tag.posts %}
         {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': false } %}
         {% endfor %}
     {% else %}

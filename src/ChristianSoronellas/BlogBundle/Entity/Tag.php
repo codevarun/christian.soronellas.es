@@ -4,6 +4,7 @@ namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * ChristianSoronellas\BlogBundle\Entity\Tag
@@ -25,7 +26,7 @@ class Tag
     /**
      * @var string $tag
      *
-     * @ORM\Column(name="tag", type="string", length=255)
+     * @ORM\Column(name="tag", type="string", length=255, unique=true)
      */
     private $tag;
     
@@ -34,6 +35,14 @@ class Tag
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
+    
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"tag"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
     /**
      * Class constructor
@@ -101,5 +110,25 @@ class Tag
     public function __toString()
     {
         return $this->getTag();
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

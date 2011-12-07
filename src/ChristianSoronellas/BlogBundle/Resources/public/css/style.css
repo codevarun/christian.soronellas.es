@@ -855,3 +855,8 @@ img.alignnone {
 	margin-bottom: 5px;
 	border: 1px solid #E9E9E9 !important;
 }
+
+h3.tag-title {
+    font-size:2em;
+    margin-bottom:1em;
+}
