@@ -76,7 +76,7 @@ class Comment
     /**
      * @var \DateTime $created_at
      * @Assert\DateTime
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable="true")
      * @Gedmo\Timestampable(on="create")
      */
     private $created_at;

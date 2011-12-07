@@ -10,6 +10,9 @@ To install follow the instructions below
 git clone git://github.com/theUniC/christian.soronellas.es.git
 cp app/config/parameters.ini.dist app/config/parameters.ini
 php bin/vendors install
+chmod -R 777 app/cache app/logs
+php app/console doctrine:schema:create
+php app/console doctrine:fixtures:load
 ```
 
 Now you only will have to configure your parameters.ini accordingly to your database config.
