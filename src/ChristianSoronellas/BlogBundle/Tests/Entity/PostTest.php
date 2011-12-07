@@ -53,8 +53,8 @@ class PostTest extends \PHPUnit_Framework_TestCase
         $childComment = new Comment();
 
         $childComment->setParentComment($comment);
-		$childComment->addParentComment($childComment);
-		
+        $childComment->setParentComment($childComment);
+        
         $comment->setPost($this->_post);
         $childComment->setPost($this->_post);
         

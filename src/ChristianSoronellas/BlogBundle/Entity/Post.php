@@ -66,7 +66,13 @@ class Post extends Content
      */
     public function getApprovedComments()
     {
-        return array_filter($this->getComments()->toArray(), function($comment) {
+        $comments = $this->getComments();
+        
+        if (!is_array($comments)) {
+            $comments = $comments->toArray();
+        }
+        
+        return array_filter($comments, function($comment) {
             return \ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState();
         });
     }
@@ -78,7 +84,13 @@ class Post extends Content
      */
     public function getParentComments()
     {
-        return array_filter($this->getComments()->toArray(), function($comment) {
+        $comments = $this->getComments();
+        
+        if (!is_array($comments)) {
+            $comments = $comments->toArray();
+        }
+        
+        return array_filter($comments, function($comment) {
             return null === $comment->getParentComment() && (\ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState());
         });
     }

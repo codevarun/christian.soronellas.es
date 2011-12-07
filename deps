@@ -86,3 +86,11 @@
 [KnpLastTweetsBundle]
     git=git://github.com/KnpLabs/KnpLastTweetsBundle.git
     target=/bundles/Knp/Bundle/LastTweetsBundle
+
+[buzz]
+    git=git://github.com/kriswallsmith/Buzz.git
+    version=v0.5
+
+[OrnicarAkismetBundle]
+    git=git://github.com/ornicar/OrnicarAkismetBundle.git
+    target=/bundles/Ornicar/AkismetBundle

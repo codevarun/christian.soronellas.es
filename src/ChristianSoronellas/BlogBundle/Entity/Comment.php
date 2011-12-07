@@ -13,7 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\CommentRepository")
- * @ORM\HasLifeCycleCallbacks
  */
 class Comment
 {
@@ -330,15 +329,6 @@ class Comment
     public function getWebsite()
     {
         return $this->website;
-    }
-    
-    /**
-     * @ORM\prePersist
-     */
-    public function beforeSave()
-    {
-        // If the state hasn't been set before
-        
     }
     
     public function __toString()

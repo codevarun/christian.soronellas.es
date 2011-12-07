@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new Gregwar\FormBundle\GregwarFormBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\LastTweetsBundle\KnpLastTweetsBundle(),
-            new ChristianSoronellas\BlogBundle\ChristianSoronellasBlogBundle(),
+            new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
+            new ChristianSoronellas\BlogBundle\ChristianSoronellasBlogBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
