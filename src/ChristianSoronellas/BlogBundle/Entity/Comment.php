@@ -13,12 +13,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\CommentRepository")
+ * @ORM\HasLifeCycleCallbacks
  */
 class Comment
 {
     const STATE_AWAITING_MODERATION = 1;
     const STATE_APPROVED = 2;
     const STATE_REFUSED = 3;
+    const STATE_IS_SPAM = 4;
     
     /**
      * @var integer $id
@@ -329,6 +331,17 @@ class Comment
     public function getWebsite()
     {
         return $this->website;
+    }
+    
+    /**
+     * @ORM\prePersist
+     */
+    public function beforeSave()
+    {
+        // If the state has not been set
+        if (null === $this->getState()) {
+            $this->setState(static::STATE_AWAITING_MODERATION);
+        }
     }
     
     public function __toString()

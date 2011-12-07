@@ -79,6 +79,14 @@ class PostsController extends Controller
             $comment = $form->getData();
             $comment->setPost($post);
             
+            // Akismet filtering
+            $data = $form->getNormData();
+            var_dump($data);
+            exit;
+            if ($this->get('akismet')->isSpam(array('comment_author' => $data['email'], 'comment_content' => $data['body']))) {
+                $comment->setState(Comment::STATE_IS_SPAM);
+            }
+            
             $em->persist($comment);
             
             $post->addComment($comment);

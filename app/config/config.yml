@@ -72,3 +72,7 @@ stof_doctrine_extensions:
     orm:
         default:
           sluggable: true
+
+ornicar_akismet:
+    api_key:        79a168866f9f
+    url:            http://christian.soronellas.es
