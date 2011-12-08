@@ -40,7 +40,7 @@ class PostsController extends Controller
      */
     public function postAction($year, $month, $day, $slug)
     {
-        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findBySlug($slug);
+        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
         $date = new \DateTime();
         $date->setDate($year, $month, $day);
         $date->setTime(0, 0, 0);
@@ -64,13 +64,13 @@ class PostsController extends Controller
      * Adds a new comment to a given post
      * 
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
-     * @Route("/post/{id}/comment", name="post_comment")
-     * @ParamConverter("post", class="ChristianSoronellasBlogBundle:Post")
+     * @Route("/post/{slug}/comment", name="post_comment")
      * @Template("ChristianSoronellasBlogBundle:Posts:post.html.twig")
      * @Method("post")
      */
-    public function commentAction(Post $post)
+    public function commentAction($slug)
     {
+        $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
         $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
         if ($form->isValid()) {
             // OK! Proceed to save the new comment to the database!
@@ -80,10 +80,7 @@ class PostsController extends Controller
             $comment->setPost($post);
             
             // Akismet filtering
-            $data = $form->getNormData();
-            var_dump($data);
-            exit;
-            if ($this->get('akismet')->isSpam(array('comment_author' => $data['email'], 'comment_content' => $data['body']))) {
+            if ($this->get('ornicar_akismet')->isSpam(array('comment_author' => $comment->getName(), 'comment_content' => $comment->getBody()))) {
                 $comment->setState(Comment::STATE_IS_SPAM);
             }
             
@@ -94,7 +91,19 @@ class PostsController extends Controller
             $em->persist($post);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('post', array('id' => $post->getId())));
+            $this->get('session')->setFlash('notice', 'Your comment is awaiting moderation!');
+            
+            return $this->redirect(
+                $this->generateUrl(
+                    'post',
+                    array(
+                        'day'   => $post->getCreatedAt()->format('d'),
+                        'month' => $post->getCreatedAt()->format('m'),
+                        'year'  => $post->getCreatedAt()->format('Y'),
+                        'slug'  => $post->getSlug()
+                    )
+                )
+            );
         }
         
         return array('post' => $post, 'form' => $form->createView());

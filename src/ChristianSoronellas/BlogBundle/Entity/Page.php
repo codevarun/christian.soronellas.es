@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ChristianSoronellas\BlogBundle\Entity\Page
  *
- * @ORM\Table()
+ * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\PageRepository")
  */
 class Page extends Content

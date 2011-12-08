@@ -22,5 +22,5 @@
     </div>
 </div>
 {% if showComments and post.parentComments|length > 0 %}
-{% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.parentComments, 'post_url': post_url, 'depth': 1, 'total_comments': post.comments|length } %}
+{% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.parentComments, 'post_url': post_url, 'depth': 1, 'total_comments': post.approvedComments|length } %}
 {% endif %}

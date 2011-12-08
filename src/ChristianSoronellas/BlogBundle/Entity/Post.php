@@ -40,13 +40,12 @@ class Post extends Content
     private $tags;
     
     /**
-     * Get id
-     *
-     * @return integer 
+     * Class constructor
      */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -125,8 +124,23 @@ class Post extends Content
         return $this->tags;
     }
     
+    /**
+     * Renders the instance as a string
+     * 
+     * @return string
+     */
     public function  __toString()
     {
-        return $this->id . '';
+        return $this->getId() . '';
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
