@@ -10,11 +10,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="content")
  * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"post" = "Post", "page" = "Page"})
  */
-class Content
+abstract class Content
 {
     /**
      * @var integer $id

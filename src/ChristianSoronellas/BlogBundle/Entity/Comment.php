@@ -344,6 +344,11 @@ class Comment
         }
     }
     
+    /**
+     * Renders a comment as a string
+     * 
+     * @return string
+     */
     public function __toString()
     {
         return $this->getId() . '';
