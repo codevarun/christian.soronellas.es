@@ -41,8 +41,6 @@ class PostsController extends Controller
     public function postAction($year, $month, $day, $slug)
     {
         $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-        var_dump($post->getId());
-        exit;
         $date = new \DateTime();
         $date->setDate($year, $month, $day);
         $date->setTime(0, 0, 0);

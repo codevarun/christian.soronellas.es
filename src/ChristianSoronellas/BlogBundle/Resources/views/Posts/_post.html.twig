@@ -1,6 +1,6 @@
 {% set post_url = path('post', { 'year': post.createdAt|date('Y'), 'month': post.createdAt|date('m'), 'day': post.createdAt|date('d'), 'slug': post.slug } ) %}
 {% set post_comments_num = post.approvedComments|length %}
-<div id="post-{{ post.id }}" class="post-{{ post.id }} post">
+<div class="post">
     <div class="post-header">
         {% if showComments %}<h1>{% else %}<h2>{% endif %}<a href="{{ post_url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">{{ post.title }}</a>{% if showComments %}</h1>{% else %}</h2>{% endif %}
         <p>by Christian Soronellas on {{ post.createdAt|date('d/m/Y') }}</p>
