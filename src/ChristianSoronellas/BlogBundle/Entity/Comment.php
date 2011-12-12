@@ -17,6 +17,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Comment
 {
+    /**
+     * Entity state constants
+     */
     const STATE_AWAITING_MODERATION = 1;
     const STATE_APPROVED = 2;
     const STATE_REFUSED = 3;
