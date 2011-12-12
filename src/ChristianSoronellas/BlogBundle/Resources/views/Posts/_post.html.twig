@@ -11,7 +11,7 @@
             <li>
                 <a href="{{ post_url }}#comments">{% if post_comments_num > 0 %}{% transchoice post_comments_num %}{0} comments|{1} comment|]1,Inf] %post_comments_num% comments{% endtranschoice %}{% else %}Leave your comment{% endif %}</a>
                 {% if post.tags|length > 0 %}
-                    • Tagged as:
+                    &bull; Tagged as:
                     {% for tag in post.tags %}
                         <a href="{{ path('tag', { 'slug': tag.slug }) }}">{{ tag.tag }}</a>{% if not loop.last %}, {% endif %}
                     {% endfor %}

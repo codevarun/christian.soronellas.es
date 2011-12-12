@@ -90,7 +90,8 @@ class Post extends Content
         }
         
         return array_filter($comments, function($comment) {
-            return null === $comment->getParentComment() && (\ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState());
+            return null === $comment->getParentComment()
+                   && (\ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState());
         });
     }
 

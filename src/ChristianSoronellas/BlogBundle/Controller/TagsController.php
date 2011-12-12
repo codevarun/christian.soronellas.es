@@ -39,9 +39,9 @@ class TagsController extends Controller
                     ->getRepository('ChristianSoronellasBlogBundle:Tag')
                     ->findOneBySlug($slug);
 
-		if (!$tag) {
-			throw $this->createNotFoundException('The specified tag doesn\'t exists!');
-		}
+        if (!$tag) {
+            throw $this->createNotFoundException('The specified tag doesn\'t exists!');
+        }
         
         return array(
             'tag' => $tag

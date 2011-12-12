@@ -17,8 +17,8 @@ class LoadPostsData extends AbstractFixture implements OrderedFixtureInterface
         $post = new Post();
         $post->setTitle('Test1');
         $post->setBody('<p>TestBody1</p>');
-        $post->setCreatedAt(new \DateTime());
-        $post->setUpdatedAt(new \DateTime());
+        $post->setCreatedAt(new \DateTime('2011-12-09'));
+        $post->setUpdatedAt(new \DateTime('2011-12-09'));
         $post->addTag($tag1);
         $post->addTag($tag2);
         
@@ -37,8 +37,8 @@ class LoadPostsData extends AbstractFixture implements OrderedFixtureInterface
         $post = new Post();
         $post->setTitle('Test2');
         $post->setBody('<p>TestBody2</p>');
-        $post->setCreatedAt(new \DateTime());
-        $post->setUpdatedAt(new \DateTime());
+        $post->setCreatedAt(new \DateTime('2011-12-09'));
+        $post->setUpdatedAt(new \DateTime('2011-12-09'));
 
         $manager->persist($post);
         $manager->flush();

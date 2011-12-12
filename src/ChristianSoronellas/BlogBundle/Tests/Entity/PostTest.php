@@ -19,16 +19,25 @@ class PostTest extends \PHPUnit_Framework_TestCase
      */
     private $_post;
     
+    /**
+     * Set up the fixture
+     */
     protected function setUp()
     {
         $this->_post = new Post();
     }
     
+    /**
+     * Tear down the fixture
+     */
     protected function tearDown()
     {
         $this->_post = null;
     }
     
+    /**
+     * Tests that post can return only approved comments
+     */
     public function testGetApprovedOnlyPostComments()
     {
         // Prepare the comments
@@ -47,11 +56,18 @@ class PostTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, sizeof($this->_post->getApprovedComments()));
     }
     
+    /**
+     * Tests that post can return only parent comments
+     */
     public function testGetParentPostComments()
     {
         $comment = new Comment();
         $childComment = new Comment();
-
+        
+        // Set the state needed
+        $comment->setState(Comment::STATE_APPROVED);
+        $childComment->setState(Comment::STATE_APPROVED);
+        
         $childComment->setParentComment($comment);
         $comment->addComment($childComment);
         
