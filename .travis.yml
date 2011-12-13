@@ -13,3 +13,8 @@ before_script:
   - php app/console doctrine:fixtures:load
 
 script: "phpunit -c app/"
+
+notifications:
+  email:
+    - theunic@gmail.com
+    on_faiulre: always

@@ -17,3 +17,5 @@
     locale            = en
 
     secret            = ThisTokenIsNotSoSecretChangeIt
+
+    akismet_apikey    = YourAkismetApiKey
