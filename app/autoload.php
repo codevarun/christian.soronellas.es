@@ -20,7 +20,7 @@ $loader->registerNamespaces(array(
     'Stof'             => __DIR__.'/../vendor/bundles',
     'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
     'Knp\Bundle'       => __DIR__.'/../vendor/bundles',
-    'Buzz'             => __DIR__.'/../vendor/buzz/lib'
+    'Buzz'             => __DIR__.'/../vendor/buzz/lib',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
