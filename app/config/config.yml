@@ -75,4 +75,4 @@ stof_doctrine_extensions:
 
 ornicar_akismet:
     api_key:        %akismet_apikey%
-    url:            http://christian.soronellas.es
+    url:            %akismet_blogurl%

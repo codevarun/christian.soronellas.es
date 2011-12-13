@@ -19,3 +19,4 @@
     secret            = ThisTokenIsNotSoSecretChangeIt
 
     akismet_apikey    = YourAkismetApiKey
+    akismet_blogurl   = "http://your.blog.com"
