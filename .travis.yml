@@ -16,5 +16,5 @@ script: "phpunit -c app/"
 
 notifications:
   email:
-    - theunic@gmail.com
     on_faiulre: always
+    on_success: change

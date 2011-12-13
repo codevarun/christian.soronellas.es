@@ -8,9 +8,17 @@ To install follow the instructions below
 
 ```shell
 git clone git://github.com/theUniC/christian.soronellas.es.git
+# Edit your database settings in the parameters.ini
 cp app/config/parameters.ini.dist app/config/parameters.ini
+vi parameters.ini
+mkdir -p app/cache app/logs
+# Your webserver user
+sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+# Your user
+sudo chmod +a "yourname allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 php bin/vendors install
-chmod -R 777 app/cache app/logs
+php app/console doctrine:database:create
+# Use "--dump-sql" argument to preview all the SQL that will get executed
 php app/console doctrine:schema:create
 php app/console doctrine:fixtures:load
 ```
