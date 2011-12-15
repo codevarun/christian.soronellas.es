@@ -4,17 +4,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="christian_soronellas_backoffice.example.class">ChristianSoronellas\BackofficeBundle\Example</parameter>
+        <parameter key="christian_soronellas_backoffice.admin.post.class">ChristianSoronellas\BackofficeBundle\Admin\PostAdmin</parameter>
     </parameters>
 
     <services>
-        <service id="christian_soronellas_backoffice.example" class="%christian_soronellas_backoffice.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="christian_soronellas.blog.admin.post" class="%christian_soronellas_backoffice.admin.post.class%">
+
+            <tag name="sonata.admin" manager_type="orm" group="Blog" label="Post"/>
+    
+            <argument />
+            <argument>ChristianSoronellas\BlogBundle\Entity\Post</argument>
+            <argument>ChristianSoronellasBackofficeBundle:PostAdmin</argument>
         </service>
     </services>
-    -->
+
 </container>
