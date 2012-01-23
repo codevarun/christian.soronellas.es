@@ -23,17 +23,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\LastTweetsBundle\KnpLastTweetsBundle(),
             new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new ChristianSoronellas\BlogBundle\ChristianSoronellasBlogBundle(),
-            new ChristianSoronellas\BackofficeBundle\ChristianSoronellasBackofficeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

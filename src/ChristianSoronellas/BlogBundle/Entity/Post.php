@@ -3,6 +3,8 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManager;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,6 +16,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Post extends Content
 {
+    const STATE_DRAFT = 1;
+    const STATE_COMPLETE = 2;
+    
     /**
      * @var integer $id
      *
@@ -38,6 +43,30 @@ class Post extends Content
      * @ORM\JoinTable(name="posts_tags")
      */
     private $tags;
+    
+    /**
+     * Whether users can post comments.
+     * 
+     * @var boolean
+     * @ORM\Column(name="comments_enabled", type="boolean")
+     */
+    private $commentsEnabled = true;
+    
+    /**
+     * The post state
+     * @var int
+     * @ORM\Column(name="state", type="integer")
+     */
+    private $state = self::STATE_DRAFT;
+    
+    /**
+     * Genrates a feed
+     */
+    private function _generateFeed(EntityManager $em)
+    {
+        $em->getRepository('ChristianSoronellasBlogBundle:Post')
+           ->generateFeed();
+    }
     
     /**
      * Class constructor
@@ -143,5 +172,45 @@ class Post extends Content
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set commentsEnabled
+     *
+     * @param boolean $commentsEnabled
+     */
+    public function setCommentsEnabled($commentsEnabled)
+    {
+        $this->commentsEnabled = $commentsEnabled;
+    }
+
+    /**
+     * Get commentsEnabled
+     *
+     * @return boolean 
+     */
+    public function getCommentsEnabled()
+    {
+        return $this->commentsEnabled;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer 
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

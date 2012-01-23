@@ -77,11 +77,5 @@ ornicar_akismet:
     api_key:        %akismet_apikey%
     url:            %akismet_blogurl%
 
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: ChristianSoronellas\BackofficeBundle\Entity\User
-    
-sonata_admin:
-    security_handler: sonata.admin.security.handler.acl
-    title: "Christian Soronellas blog administration"
+christian_soronellas_blog:
+    feed_path: app/data/feed.xml

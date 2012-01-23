@@ -46,7 +46,7 @@ class PostsController extends Controller
         $date->setTime(0, 0, 0);
         $post->getCreatedAt()->setTime(0, 0, 0);
         
-        if (!$post || $post->getCreatedAt() != $date) {
+        if (!$post || $post->getCreatedAt() != $date || Post::STATE_COMPLETE != $post->getState()) {
             throw $this->createNotFoundException('The post doesn\'t exists!');
         }
         
@@ -71,41 +71,60 @@ class PostsController extends Controller
     public function commentAction($slug)
     {
         $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-        $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
-        if ($form->isValid()) {
-            // OK! Proceed to save the new comment to the database!
-            $em = $this->getDoctrine()->getEntityManager();
-            
-            $comment = $form->getData();
-            $comment->setPost($post);
-            
-            // Akismet filtering
-            if ($this->get('ornicar_akismet')->isSpam(array('comment_author' => $comment->getName(), 'comment_content' => $comment->getBody()))) {
-                $comment->setState(Comment::STATE_IS_SPAM);
-            }
-            
-            $em->persist($comment);
-            
-            $post->addComment($comment);
-            
-            $em->persist($post);
-            $em->flush();
-            
-            $this->get('session')->setFlash('notice', 'Your comment is awaiting moderation!');
+        
+        if (false === $post->getCommentsEnabled()) {
+            $this->get('session')->setFlash('notice', 'Comments on this entry are disabled!');
             
             return $this->redirect(
-                $this->generateUrl(
-                    'post',
-                    array(
-                        'day'   => $post->getCreatedAt()->format('d'),
-                        'month' => $post->getCreatedAt()->format('m'),
-                        'year'  => $post->getCreatedAt()->format('Y'),
-                        'slug'  => $post->getSlug()
+                    $this->generateUrl(
+                            'post',
+                            array(
+                                    'day'   => $post->getCreatedAt()->format('d'),
+                                    'month' => $post->getCreatedAt()->format('m'),
+                                    'year'  => $post->getCreatedAt()->format('Y'),
+                                    'slug'  => $post->getSlug()
+                            )
                     )
-                )
             );
         }
         
-        return array('post' => $post, 'form' => $form->createView());
+        if (false !== $post->getCommentsEnabled()) {
+            $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
+            if ($form->isValid()) {
+                // OK! Proceed to save the new comment to the database!
+                $em = $this->getDoctrine()->getEntityManager();
+                
+                $comment = $form->getData();
+                $comment->setPost($post);
+                
+                // Akismet filtering
+                if ($this->get('ornicar_akismet')->isSpam(array('comment_author' => $comment->getName(), 'comment_content' => $comment->getBody()))) {
+                    $comment->setState(Comment::STATE_IS_SPAM);
+                }
+                
+                $em->persist($comment);
+                
+                $post->addComment($comment);
+                
+                $em->persist($post);
+                $em->flush();
+                
+                $this->get('session')->setFlash('notice', 'Your comment is awaiting moderation!');
+                
+                return $this->redirect(
+                    $this->generateUrl(
+                        'post',
+                        array(
+                            'day'   => $post->getCreatedAt()->format('d'),
+                            'month' => $post->getCreatedAt()->format('m'),
+                            'year'  => $post->getCreatedAt()->format('Y'),
+                            'slug'  => $post->getSlug()
+                        )
+                    )
+                );
+            }
+            
+            return array('post' => $post, 'form' => $form->createView());
+        }
     }
 }

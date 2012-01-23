@@ -3,6 +3,7 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use ChristianSoronellas\BlogBundle\Entity\Post;
 
 /**
  * PostRepository
@@ -12,5 +13,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
-
+    
 }

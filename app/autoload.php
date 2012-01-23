@@ -21,11 +21,7 @@ $loader->registerNamespaces(array(
     'Gedmo'            => __DIR__.'/../vendor/doctrine-extensions/lib',
     'Knp\Bundle'       => __DIR__.'/../vendor/bundles',
     'Buzz'             => __DIR__.'/../vendor/buzz/lib',
-    'Sonata'           => __DIR__.'/../vendor/bundles',
-    'Knp\Menu'         => __DIR__.'/../vendor/knp/menu/src',
-    'Application'      => __DIR__,
-    'FOS'              => __DIR__.'/../vendor/bundles',
-    'SimpleThings'     => __DIR__.'/../vendor/bundles',
+    'Zend'             => __DIR__.'/../vendor/ZendFramework/library'
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
