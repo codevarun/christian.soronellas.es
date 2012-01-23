@@ -1,6 +1,8 @@
 Christian Soronellas Blog
 =========================
 
+[![Build Status](https://secure.travis-ci.org/theUniC/christian.soronellas.es.png)](http://travis-ci.org/theUniC/christian.soronellas.es)
+
 This is the implementation of the blog engine of http://christian.soronellas.es
 based on Symfony2 Standard Edition.
 
