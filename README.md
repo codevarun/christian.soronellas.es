@@ -1,5 +1,4 @@
-Christian Soronellas Blog
-=========================
+# Christian Soronellas Blog ![project status](http://stillmaintained.com/theUniC/christian.soronellas.es.png) #
 
 [![Build Status](https://secure.travis-ci.org/theUniC/christian.soronellas.es.png)](http://travis-ci.org/theUniC/christian.soronellas.es)
 

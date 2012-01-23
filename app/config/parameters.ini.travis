@@ -6,7 +6,7 @@
     database_host     = 0.0.0.0
     database_port     =
     database_name     = christiansoronellas
-    database_user     = 
+    database_user     = root
     database_password = 
 
     mailer_transport  = smtp
