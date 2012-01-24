@@ -28,30 +28,33 @@ class AdminPostsController extends Controller
 
         $entities = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findAll();
 
-        return array('entities' => $entities);
+        return array(
+            'entities' => $entities
+        );
     }
 
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("/{id}/show", name="admin_post_show")
+     * @Route("/{slug}/show", name="admin_post_show")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($slug)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
+        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
 
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
+            'delete_form' => $deleteForm->createView()
+        );
     }
 
     /**
@@ -90,7 +93,7 @@ class AdminPostsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_post_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_post_show', array('slug' => $entity->getSlug())));
 
         }
 
@@ -103,21 +106,21 @@ class AdminPostsController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="admin_post_edit")
+     * @Route("/{slug}/edit", name="admin_post_edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($slug)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
+        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
         $editForm = $this->createForm(new PostType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
 
         return array(
             'entity'      => $entity,
@@ -129,22 +132,22 @@ class AdminPostsController extends Controller
     /**
      * Edits an existing Post entity.
      *
-     * @Route("/{id}/update", name="admin_post_update")
+     * @Route("/{slug}/update", name="admin_post_update")
      * @Method("post")
      * @Template("ChristianSoronellasBlogBundle:AdminPosts:edit.html.twig")
      */
-    public function updateAction($id)
+    public function updateAction($slug)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
+        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
         $editForm   = $this->createForm(new PostType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
 
         $request = $this->getRequest();
 
@@ -154,7 +157,7 @@ class AdminPostsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $slug)));
         }
 
         return array(
@@ -167,19 +170,19 @@ class AdminPostsController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}/delete", name="admin_post_delete")
+     * @Route("/{slug}/delete", name="admin_post_delete")
      * @Method("post")
      */
-    public function deleteAction($id)
+    public function deleteAction($slug)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($slug);
         $request = $this->getRequest();
 
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->find($id);
+            $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Post entity.');
@@ -192,10 +195,10 @@ class AdminPostsController extends Controller
         return $this->redirect($this->generateUrl('admin_post'));
     }
 
-    private function createDeleteForm($id)
+    private function createDeleteForm($slug)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder(array('slug' => $slug))
+            ->add('slug', 'hidden')
             ->getForm()
         ;
     }

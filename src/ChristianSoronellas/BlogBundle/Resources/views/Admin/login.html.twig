@@ -1,10 +1,13 @@
 {% extends 'ChristianSoronellasBlogBundle::admin.html.twig' %}
 
-{% block content %}
+{% block navigation %}
+<ul class="nav"></ul>
+{% endblock %}
 
-<div class="page-header">
-    <h1>Quién eres? <small>Identifícate para poder continuar</small></h1>
-</div>
+{% block pagetitle %}Quién eres?{% endblock %}
+{% block pagesubtitle %}Identifícate para poder continuar{% endblock %}
+
+{% block content %}
 
 <div class="row">
     <div class="span-one-third">
@@ -42,12 +45,6 @@
                     <input type="submit" class="btn primary" value="Entrar!">&nbsp;<button type="reset" class="btn">Cancel</button>
                 </div>
             </fieldset>
-
-
-            {#
-        If you want to control the URL the user is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
         </form>
     </div>
 </div>

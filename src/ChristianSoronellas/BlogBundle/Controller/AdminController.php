@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        $this->forward('AdminPosts', '/index');
+        return $this->forward('ChristianSoronellasBlogBundle:AdminPosts:index');
     }
 
     /**

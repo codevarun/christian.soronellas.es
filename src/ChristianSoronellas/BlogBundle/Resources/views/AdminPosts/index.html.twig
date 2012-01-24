@@ -1,49 +1,53 @@
-<h1>Post list</h1>
+{% extends 'ChristianSoronellasBlogBundle::admin.html.twig' %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Slug</th>
-            <th>Created_at</th>
-            <th>Updated_at</th>
-            <th>Commentsenabled</th>
-            <th>State</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('admin_post_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.title }}</td>
-            <td>{{ entity.body }}</td>
-            <td>{{ entity.slug }}</td>
-            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{{ entity.commentsEnabled }}</td>
-            <td>{{ entity.state }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_post_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_post_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
-<ul>
-    <li>
-        <a href="{{ path('admin_post_new') }}">
-            Create a new entry
-        </a>
-    </li>
+{% block navigation %}
+<ul class="nav">
+    <li class="active"><a href="#">Entradas</a></li>
+    <li><a href="#">Tags</a></li>
 </ul>
+{% endblock %}
+
+{% block pagetitle %}Entradas{% endblock %}
+{% block pagesubtitle %}Lista de las últimas entradas del blog{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="span-one-third">
+        <p>Lista con las ultimas entradas introducidas en el blog.</p>
+    </div>
+    <div class="span-two-thirds">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Fecha de creación</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">{{ entity.title }}</a></td>
+                    <td>{% if entity.createdat %}{{ entity.createdat|date('d/m/Y') }}{% endif%}</td>
+                    <td>
+                        {% if entity.state == 1 %}
+                        <span class="label warning">Borrador</span>
+                        {% else %}
+                        <span class="label success">Publicada</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn default" href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">Ver</a> <a class="btn default" href="{{ path('admin_post_edit', { 'slug': entity.slug }) }}">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="well">
+            <a href="{{ path('admin_post_new') }}" class="btn large primary">Crear nueva entrada</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -51,4 +51,9 @@ class AdminPostsControllerTest extends WebTestCase
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
     */
+
+    public function testDummy()
+    {
+        $this->assertTrue(true);
+    }
 }
