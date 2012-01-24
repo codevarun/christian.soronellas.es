@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
         <meta name="keywords" value="{% block keywords %}christian soronellas,php,zend framework, zendframework{% endblock %}" />
         <title>{% block title %}Christian Soronellas Web Architect{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/style.css') }}" type="text/css" media="screen" />
@@ -70,7 +70,7 @@
             var uvOptions = {};
             
             $LAB
-            .script('https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+            .script('http://code.jquery.com/jquery-1.7.1.min.js')
             .script('http://widget.uservoice.com/yxgPNGS9jhCcT6ukla3j7w.js')
             .wait(function() {
                 $(window).load(function(event) {

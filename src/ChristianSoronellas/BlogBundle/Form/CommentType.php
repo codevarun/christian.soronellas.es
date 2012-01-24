@@ -13,7 +13,7 @@ class CommentType extends AbstractType
                 ->add('email', 'email')
                 ->add('website', 'url')
                 ->add('parentComment', 'entity_id', array(
-                    'class' => 'ChristianSoronellas\BlogBundle\Entity\Comment'    
+                    'class' => 'ChristianSoronellas\BlogBundle\Entity\Comment'
                 ))
                 ->add('body', 'textarea', array(
                     'label' => 'Comment',

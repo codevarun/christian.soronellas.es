@@ -15,9 +15,9 @@ security:
             pattern:      ^/admin
             anonymous: ~
             form_login:
-                login_path: /admin/login
-                check_path: /admin/login-check
-                default_target_path: /admin/menu
+                login_path:          /admin/login
+                check_path:          /admin/login-check
+                default_target_path: /admin
             logout:
                 path:           /admin/logout
                 target:         /admin/login
@@ -28,3 +28,4 @@ security:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin(.*), role: ROLE_ADMIN }

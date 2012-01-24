@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="es-Es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Christian Soronellas Blog Administration</title>
+        <link rel="stylesheet" href="{{ asset('/bundles/christiansoronellasblog/css/bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/bundles/christiansoronellasblog/css/admin/styles.css') }}">
+    </head>
+
+    <body>
+        <div class="topbar" data-scrollspy="scrollspy">
+            <div class="topbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">Christian Soronellas</a>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Entradas</a></li>
+                        <li><a href="#">Tags</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        {% if code is defined %}
+        <h2>Code behind this page</h2>
+        <div class="symfony-content">{{ code|raw }}</div>
+        {% endif %}
+    </body>
+</html>

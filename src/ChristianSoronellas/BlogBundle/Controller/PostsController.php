@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use ChristianSoronellas\BlogBundle\Form\CommentType;
+use ChristianSoronellas\BlogBundle\Form\LoginType;
 use ChristianSoronellas\BlogBundle\Entity\Post;
 use ChristianSoronellas\BlogBundle\Entity\Comment;
 
@@ -50,7 +50,7 @@ class PostsController extends Controller
             throw $this->createNotFoundException('The post doesn\'t exists!');
         }
         
-        $form = $this->createForm(new CommentType());
+        $form = $this->createForm(new LoginType());
         if (null !== ($commentId = $this->getRequest()->get('commentTo'))) {
             $comment = new Comment();
             $comment->setParentComment($this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Comment')->find((int) $commentId));
@@ -89,7 +89,7 @@ class PostsController extends Controller
         }
         
         if (false !== $post->getCommentsEnabled()) {
-            $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
+            $form = $this->createForm(new LoginType())->bindRequest($this->getRequest());
             if ($form->isValid()) {
                 // OK! Proceed to save the new comment to the database!
                 $em = $this->getDoctrine()->getEntityManager();

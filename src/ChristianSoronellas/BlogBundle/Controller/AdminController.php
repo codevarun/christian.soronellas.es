@@ -2,17 +2,34 @@
 namespace ChristianSoronellas\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * The security controller
  *
  * @author csoronellas
+ * @Route("/admin")
  */
-class SecurityController extends Controller
+class AdminController extends Controller
 {
     /**
-     * @Route("/admin/login")
+     * @Route("/dashboard")
+     * @Route("/")
+     */
+    public function indexAction()
+    {
+        $this->forward('AdminPosts', '/index');
+    }
+
+    /**
+     * @Route("/login")
+     * @Template
      */
     public function loginAction()
     {

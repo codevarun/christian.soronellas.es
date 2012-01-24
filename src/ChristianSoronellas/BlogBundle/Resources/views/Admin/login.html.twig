@@ -1,0 +1,54 @@
+{% extends 'ChristianSoronellasBlogBundle::admin.html.twig' %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Quién eres? <small>Identifícate para poder continuar</small></h1>
+</div>
+
+<div class="row">
+    <div class="span-one-third">
+        <p>Esta es la zona de administración de el blog de Christian Soronellas Vallespí. Identifícate para poder continuar.</p>
+    </div>
+    <div class="span-two-thirds">
+        {% if error %}
+        <div class="alert-message error">
+            <a class="close" href="#">×</a>
+            <p><strong>Oh No!</strong> {{ error.message }}</p>
+        </div>
+        {% endif %}
+
+        <form action="{{ path('login_check') }}" method="post">
+            <fieldset>
+                <legend>Identifícate para continuar</legend>
+
+                <div class="clearfix">
+                    <label for="username">Nombre de usuario</label>
+                    <div class="input">
+                        <input class="xlarge" id="username" name="_username" size="30" type="text" value="{{ last_username }}">
+                        <span class="help-block">Escribe tu nombre de usuario</span>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <label for="password">Clave de acceso</label>
+                    <div class="input">
+                        <input class="xlarge" id="password" name="_password" size="30" type="password">
+                        <span class="help-block">Escribe la clave de acceso</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <input type="submit" class="btn primary" value="Entrar!">&nbsp;<button type="reset" class="btn">Cancel</button>
+                </div>
+            </fieldset>
+
+
+            {#
+        If you want to control the URL the user is redirected to on success (more details below)
+        <input type="hidden" name="_target_path" value="/account" />
+    #}
+        </form>
+    </div>
+</div>
+{% endblock %}
