@@ -66,11 +66,14 @@ class AdminPostsController extends Controller
     public function newAction()
     {
         $entity = new Post();
-        $form   = $this->createForm(new PostType(), $entity);
+
+        // Fill the entity with some data
+        $entity->setTitle('Título de la entrada');
+        $entity->setBody('<p>Cuerpo de la entrada</p>');
+        $entity->setCreatedAt(new \DateTime());
 
         return array(
-            'entity' => $entity,
-            'form'   => $form->createView()
+            'post' => $entity
         );
     }
 
@@ -78,7 +81,7 @@ class AdminPostsController extends Controller
      * Creates a new Post entity.
      *
      * @Route("/create", name="admin_post_create")
-     * @Method("post")
+     * @Method({"POST", "PUT"})
      * @Template("ChristianSoronellasBlogBundle:AdminPosts:new.html.twig")
      */
     public function createAction()

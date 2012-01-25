@@ -5,10 +5,12 @@
         <meta charset="UTF-8">
         <meta name="keywords" value="{% block keywords %}christian soronellas,php,zend framework, zendframework{% endblock %}" />
         <title>{% block title %}Christian Soronellas Web Architect{% endblock %}</title>
+        {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/style.css') }}" type="text/css" media="screen" />
         <!--[if lt IE 8]>
         <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/ie-fixes.css') }}" type="text/css" media="screen" />
         <![endif]-->
+        {% endblock %}
     </head>
     
     <body>
@@ -67,8 +69,8 @@
         {% endjavascripts %}
         <script type="text/javascript">
             // <![CDATA[
+            {% block javascripts %}
             var uvOptions = {};
-            
             $LAB
             .script('http://code.jquery.com/jquery-1.7.1.min.js')
             .script('http://widget.uservoice.com/yxgPNGS9jhCcT6ukla3j7w.js')
@@ -80,6 +82,7 @@
                     });
                 });
             });
+            {% endblock %}
             // ]]>
         </script>
     </body>

@@ -1,16 +1,50 @@
-<h1>Post creation</h1>
+{% extends 'ChristianSoronellasBlogBundle::layout.html.twig' %}
 
-<form action="{{ path('admin_post_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets
+    '@ChristianSoronellasBlogBundle/Resources/public/css/createjs/deps/hallo/vader/jquery-ui-1.8.16.custom.css'
+    '@ChristianSoronellasBlogBundle/Resources/public/css/createjs/themes/midgard-theme/jquery.ui.all.css'
+    '@ChristianSoronellasBlogBundle/Resources/public/css/createjs/themes/midgard-toolbar/midgardbar.css'
+    '@ChristianSoronellasBlogBundle/Resources/public/css/createjs/themes/midgard-notifications/midgardnotif.css'
+    %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_post') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block title %}Nueva entrada{% endblock %}
+
+{% block content %}
+<div xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:dcterms="http://purl.org/dc/terms/" about="{{ path("root") }}" rel="dcterms:hasPart" rev="dcterms:partOf">
+    {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': entity, 'showComments': false    } %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+$LAB
+{% javascripts
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/jquery-1.6.4.min.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/jquery-ui-1.8.16.custom.min.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/modernizr.custom.80485.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/underscore-min.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/backbone-min.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/vie-min.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/hallo/hallo.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/deps/hallo/format.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardCreate.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardToolbar.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardStorage.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardEditable.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardWorkflows.js'
+    '@ChristianSoronellasBlogBundle/Resources/public/js/createjs/src/jquery.Midgard.midgardNotifications.js'
+%}
+.script('{{ asset_url }}')
+{% endjavascripts %}
+.wait(function() {
+    $(document).ready(function() {
+        $('body').midgardCreate({
+            url: function() { return '{{ path('admin_post_create') }}'; }
+        });
+    });
+});
+{% endblock %}

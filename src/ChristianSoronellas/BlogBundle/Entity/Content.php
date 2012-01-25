@@ -136,17 +136,17 @@ abstract class Content
     /**
      * Set created_at
      *
-     * @param datetime $createdAt
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt = null)
     {
-        $this->created_at = $createdAt;
+        $this->created_at = $createdAt ?: new \DateTime();
     }
 
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -156,17 +156,17 @@ abstract class Content
     /**
      * Set updated_at
      *
-     * @param datetime $updatedAt
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
-        $this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt ?: new \DateTime();
     }
 
     /**
      * Get updated_at
      *
-     * @return datetime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
