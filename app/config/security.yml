@@ -1,3 +1,7 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
 security:
     acl:
         connection: default
@@ -7,8 +11,9 @@ security:
 
     providers:
         in_memory:
-            users:
-                theUniC: { password: ones2502, roles: [ 'ROLE_ADMIN' ] } 
+            memory:
+                users:
+                    theUniC: { password: ones2502, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
         admin:
@@ -25,6 +30,7 @@ security:
             anonymous:    true
 
     access_control:
+        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }

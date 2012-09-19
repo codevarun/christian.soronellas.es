@@ -1,0 +1,61 @@
+{
+    "name": "christiansoronellas/blog",
+    "description": "Christian Soronellas Weblog",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.1.1",
+        "doctrine/orm": "2.3.0-RC4",
+        "doctrine/doctrine-bundle": "1.0.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.1.0",
+        "symfony/swiftmailer-bundle": "2.1.0",
+        "symfony/monolog-bundle": "2.1.0",
+        "sensio/distribution-bundle": "2.1.0",
+        "sensio/framework-extra-bundle": "2.1.0",
+        "sensio/generator-bundle": "2.1.0",
+        "jms/security-extra-bundle": "1.2.0",
+        "jms/di-extra-bundle": "1.1.0",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "stof/doctrine-extensions-bundle": "1.1.*",
+        "ornicar/gravatar-bundle": "dev-master",
+        "knplabs/knp-last-tweets-bundle": "dev-master",
+        "ornicar/akismet-bundle": "dev-master",
+        "zendframework/zend-feed": "2.0.*",
+        "gregwar/form-bundle": "dev-master"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Gregwar/FormBundle"
+        }
+    ]
+}

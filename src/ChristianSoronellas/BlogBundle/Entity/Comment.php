@@ -58,7 +58,7 @@ class Comment
      * 
      * @var string
      * @Assert\Url
-     * @ORM\Column(name="website", type="string", nullable="true")
+     * @ORM\Column(name="website", type="string", nullable=true)
      */
     private $website;
     
@@ -80,7 +80,7 @@ class Comment
     /**
      * @var \DateTime $created_at
      * @Assert\DateTime
-     * @ORM\Column(name="created_at", type="datetime", nullable="true")
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
@@ -88,7 +88,7 @@ class Comment
     /**
      * @var \DateTime $updated_at
      * @Assert\DateTime
-     * @ORM\Column(name="updated_at", type="datetime", nullable="true")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;

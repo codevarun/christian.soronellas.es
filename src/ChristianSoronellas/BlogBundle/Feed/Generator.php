@@ -2,8 +2,6 @@
 
 namespace ChristianSoronellas\BlogBundle\Feed;
 
-use Zend\Feed\Writer\Generator;
-
 /**
  * A feed generator built on top of the Zend\Feed component
  *
