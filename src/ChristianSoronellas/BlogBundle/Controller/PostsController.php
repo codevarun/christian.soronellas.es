@@ -46,7 +46,7 @@ class PostsController extends Controller
         $date->setTime(0, 0, 0);
         $post->getCreatedAt()->setTime(0, 0, 0);
 
-        if (!$post || $post->getCreatedAt() != $date || Post::STATE_COMPLETE != $post->getState()) {
+        if (!$post || Post::STATE_COMPLETE != $post->getState()) {
             throw $this->createNotFoundException('The post doesn\'t exists!');
         }
 

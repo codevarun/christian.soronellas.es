@@ -47,9 +47,10 @@ class Comment
      * The commenter's email
      * 
      * @var string
-     * @Assert\NotBlank
+     *
      * @Assert\Email
-     * @ORM\Column(name="email", type="string")
+     *
+     * @ORM\Column(name="email", type="string", nullable=true)
      */
     private $email;
     

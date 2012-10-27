@@ -4,71 +4,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <!--
     <parameters>
-        <parameter key="zend.feed.writer.feed.class">Zend\Feed\Writer\Feed</parameter>
-        <parameter key="christiansoronellas.blogbundle.feed.generator.class">ChristianSoronellas\BlogBundle\Feed\Generator</parameter>
-        <parameter key="christiansoronellas.blogbundle.feed.importer.class">ChristianSoronellas\BlogBundle\Feed\Importer\PostImporter</parameter>
-        <parameter key="christiansoronellas.blogbundle.feed.importer.comments.class">ChristianSoronellas\BlogBundle\Feed\Importer\CommentImporter</parameter>
+        <parameter key="christian_soronellas_blog_feed_importer.example.class">ChristianSoronellas\Blog\Bundle\FeedImporterBundle\Example</parameter>
     </parameters>
-    
+
     <services>
-        <!-- Zend\Feed\Writer\Feed instance -->
-        <service id="zend.feed.writer.feed" class="%zend.feed.writer.feed.class%" public="false">
-            <call method="setTitle">
-                <argument>%christian_soronellas_blog.feed_meta.title%</argument>
-            </call>
-            <call method="setLink">
-                <argument>%christian_soronellas_blog.feed_meta.link%</argument>
-            </call>
-            <call method="setFeedLink">
-                <argument>%christian_soronellas_blog.feed_meta.feed_link.url%</argument>
-                <argument>%christian_soronellas_blog.feed_meta.feed_link.type%</argument>
-            </call>
-            <call method="addAuthor">
-                <argument>%christian_soronellas_blog.feed_meta.author.name%</argument>
-                <argument>%christian_soronellas_blog.feed_meta.author.email%</argument>
-                <argument>%christian_soronellas_blog.feed_meta.author.uri%</argument>
-            </call>
-            <call method="setCopyright">
-                <argument>%christian_soronellas_blog.feed_meta.copyright%</argument>
-            </call>
-            <call method="setDescription">
-                <argument>%christian_soronellas_blog.feed_meta.description%</argument>
-            </call>
-        </service>
-        
-        <!-- ChristianSoronellas\BlogBundle\Feed\Generator -->
-        <service id="christiansoronellas.blogbundle.feed.generator"
-                 class="%christiansoronellas.blogbundle.feed.generator.class%"
-                 public="true">
-            <argument type="service" id="zend.feed.writer.feed" />
-            <argument type="service" id="router" />
-            <argument>%christian_soronellas_blog.feed_path%</argument>
-        </service>
-        
-        <!-- ChristianSoronellas\BlogBundle\Feed\Importer\DoctrineImporter -->
-        <service id="christiansoronellas.blogbundle.feed.importer.doctrine" abstract="true" public="false">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-        </service>
-        
-        <!-- ChristianSoronellas\BlogBundle\Feed\Importer\CommentImporter -->
-        <service id="christiansoronellas.blogbundle.feed.importer.comments"
-                 class="%christiansoronellas.blogbundle.feed.importer.comments.class%"
-                 parent="christiansoronellas.blogbundle.feed.importer.doctrine"
-                 public="true">
-            <call method="setCommentImporter">
-                <argument type="service" id="christiansoronellas.blogbundle.feed.importer.comments" />
-            </call>
-        </service>
-        
-        <!-- ChristianSoronellas\BlogBundle\Feed\Importer\PostImporter -->
-        <service id="christiansoronellas.blogbundle.feed.importer"
-                 class="%christiansoronellas.blogbundle.feed.importer.class%"
-                 parent="christiansoronellas.blogbundle.feed.importer.doctrine"
-                 public="true">
-            <call method="setCommentImporter">
-                <argument type="service" id="christiansoronellas.blogbundle.feed.importer.comments" />
-            </call>
+        <service id="christian_soronellas_blog_feed_importer.example" class="%christian_soronellas_blog_feed_importer.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
         </service>
     </services>
+    -->
 </container>

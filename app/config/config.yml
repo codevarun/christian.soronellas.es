@@ -75,6 +75,3 @@ stof_doctrine_extensions:
 ornicar_akismet:
     api_key:        %akismet_apikey%
     url:            %akismet_blogurl%
-
-christian_soronellas_blog:
-    feed_path: app/data/feed.xml
