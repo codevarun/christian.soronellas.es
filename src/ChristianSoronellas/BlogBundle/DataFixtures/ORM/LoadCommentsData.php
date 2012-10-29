@@ -6,10 +6,11 @@ namespace ChristianSoronellas\BlogBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use ChristianSoronellas\BlogBundle\Entity\Comment;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load($manager)
+    public function load(ObjectManager $manager)
     {
         // Load target post
         $post = $manager->merge($this->getReference('post1'));
@@ -37,23 +38,6 @@ class LoadCommentsData extends AbstractFixture implements OrderedFixtureInterfac
         $comment2->setPost($post);
         $post->addComment($comment2);
         
-        $manager->persist($comment2);
-        $manager->persist($post);
-        $manager->flush();
-        
-        sleep(1);
-        
-        $subcomment = new Comment();
-        $subcomment->setBody('TestSubcomment');
-        $subcomment->setEmail('theunic@gmail.com');
-        $subcomment->setName('TestAuthor3');
-        $subcomment->setPost($post);
-        $post->addComment($subcomment);
-        $comment2->addComment($subcomment);
-        $subcomment->setParentComment($comment2);
-        $subcomment->setState(Comment::STATE_APPROVED);
-        
-        $manager->persist($subcomment);
         $manager->persist($comment2);
         $manager->persist($post);
         $manager->flush();

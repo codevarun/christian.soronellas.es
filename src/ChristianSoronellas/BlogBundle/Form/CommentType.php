@@ -12,14 +12,10 @@ class CommentType extends AbstractType
         $builder->add('name', 'text')
                 ->add('email', 'email')
                 ->add('website', 'url')
-                ->add('parentComment', 'entity_id', array(
-                    'class' => 'ChristianSoronellas\BlogBundle\Entity\Comment'
-                ))
                 ->add('body', 'textarea', array(
                     'label' => 'Comment',
                     'attr' => array(
-                        'rows' => 10,
-                        'cols' => 100
+                        'rows' => 10
                     )
                 ));
     }

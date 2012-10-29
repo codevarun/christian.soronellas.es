@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use ChristianSoronellas\BlogBundle\Entity\Page;
+use ChristianSoronellas\BlogBundle\Form\ContactType;
 
 /**
  * Description of ContactController
@@ -34,6 +34,10 @@ class ContactController extends Controller
      */
     public function contactAction()
     {
-        return array();
+        $form = $this->createForm(new ContactType());
+
+        return array(
+            'form' => $form->createView()
+        );
     }
 }

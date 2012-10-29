@@ -38,13 +38,9 @@ class PostsController extends Controller
      * @Route("/{year}/{month}/{day}/{slug}", name="post")
      * @Template()
      */
-    public function postAction($year, $month, $day, $slug)
+    public function postAction($slug)
     {
         $post = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-        $date = new \DateTime();
-        $date->setDate($year, $month, $day);
-        $date->setTime(0, 0, 0);
-        $post->getCreatedAt()->setTime(0, 0, 0);
 
         if (!$post || Post::STATE_COMPLETE != $post->getState()) {
             throw $this->createNotFoundException('The post doesn\'t exists!');
@@ -88,43 +84,45 @@ class PostsController extends Controller
             );
         }
 
-        if (false !== $post->getCommentsEnabled()) {
-            $form = $this->createForm(new CommentType())->bindRequest($this->getRequest());
-            if ($form->isValid()) {
-                // OK! Proceed to save the new comment to the database!
-                $em = $this->getDoctrine()->getEntityManager();
 
-                $comment = $form->getData();
-                $comment->setPost($post);
+        $form = $this->createForm(new CommentType());
+        $form->bind($this->getRequest());
 
-                // Akismet filtering
-                if ($this->get('ornicar_akismet')->isSpam(array('comment_author' => $comment->getName(), 'comment_content' => $comment->getBody()))) {
-                    $comment->setState(Comment::STATE_IS_SPAM);
-                }
+        if ($form->isValid()) {
+            // OK! Proceed to save the new comment to the database!
+            $em = $this->getDoctrine()->getManager();
 
-                $em->persist($comment);
+            $comment = $form->getData();
+            $comment->setPost($post);
 
-                $post->addComment($comment);
-
-                $em->persist($post);
-                $em->flush();
-
-                $this->get('session')->setFlash('notice', 'Your comment is awaiting moderation!');
-
-                return $this->redirect(
-                    $this->generateUrl(
-                        'post',
-                        array(
-                            'day'   => $post->getCreatedAt()->format('d'),
-                            'month' => $post->getCreatedAt()->format('m'),
-                            'year'  => $post->getCreatedAt()->format('Y'),
-                            'slug'  => $post->getSlug()
-                        )
-                    )
-                );
+            // Akismet filtering
+            $comment->setState(Comment::STATE_APPROVED);
+            if ($this->get('ornicar_akismet')->isSpam(array('comment_author' => $comment->getName(), 'comment_content' => $comment->getBody()))) {
+                $comment->setState(Comment::STATE_IS_SPAM);
             }
 
-            return array('post' => $post, 'form' => $form->createView());
+            $em->persist($comment);
+
+            $post->addComment($comment);
+
+            $em->persist($post);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('notice', 'Your comment has been saved succesfully!');
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'post',
+                    array(
+                        'day'   => $post->getCreatedAt()->format('d'),
+                        'month' => $post->getCreatedAt()->format('m'),
+                        'year'  => $post->getCreatedAt()->format('Y'),
+                        'slug'  => $post->getSlug()
+                    )
+                )
+            );
         }
+
+        return array('post' => $post, 'form' => $form->createView());
     }
 }

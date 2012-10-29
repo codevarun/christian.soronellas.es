@@ -3,8 +3,6 @@
 namespace ChristianSoronellas\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\EntityManager;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\PostRepository")
  */
-class Post extends Content
+class Post
 {
     const STATE_DRAFT = 1;
     const STATE_COMPLETE = 2;
@@ -27,6 +25,28 @@ class Post extends Content
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string $title
+     *
+     * @ORM\Column(name="title", type="string", length=255, unique=true)
+     */
+    private $title;
+
+    /**
+     * @var text $body
+     *
+     * @ORM\Column(name="body", type="text")
+     */
+    private $body;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
     
     /**
      * @var \Doctrine\Commons\Collections\ArrayCollection
@@ -58,15 +78,22 @@ class Post extends Content
      * @ORM\Column(name="state", type="integer")
      */
     private $state = self::STATE_DRAFT;
-    
+
     /**
-     * Genrates a feed
+     * @var datetime $created_at
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private function _generateFeed(EntityManager $em)
-    {
-        $em->getRepository('ChristianSoronellasBlogBundle:Post')
-           ->generateFeed();
-    }
+    private $created_at;
+
+    /**
+     * @var datetime $updated_at
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated_at;
     
     /**
      * Class constructor
@@ -102,25 +129,6 @@ class Post extends Content
         
         return array_filter($comments, function($comment) {
             return \ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState();
-        });
-    }
-    
-    /**
-     * Returns all the post comments that has no parent
-     * 
-     * @return array 
-     */
-    public function getParentComments()
-    {
-        $comments = $this->getComments();
-        
-        if (!is_array($comments)) {
-            $comments = $comments->toArray();
-        }
-        
-        return array_filter($comments, function($comment) {
-            return null === $comment->getParentComment()
-                   && (\ChristianSoronellas\BlogBundle\Entity\Comment::STATE_APPROVED == $comment->getState());
         });
     }
 
@@ -212,5 +220,140 @@ class Post extends Content
     public function getState()
     {
         return $this->state;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     * @return Post
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Post
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return Post
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param ChristianSoronellas\BlogBundle\Entity\Comment $comments
+     */
+    public function removeComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param ChristianSoronellas\BlogBundle\Entity\Tag $tags
+     */
+    public function removeTag(\ChristianSoronellas\BlogBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
     }
 }

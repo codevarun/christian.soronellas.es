@@ -6,10 +6,11 @@ namespace ChristianSoronellas\BlogBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use ChristianSoronellas\BlogBundle\Entity\Post;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadPostsData extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load($manager)
+    public function load(ObjectManager $manager)
     {
         $tag1 = $manager->merge($this->getReference('tag1'));
         $tag2 = $manager->merge($this->getReference('tag2'));

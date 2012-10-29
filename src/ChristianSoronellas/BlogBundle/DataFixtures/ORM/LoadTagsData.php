@@ -5,6 +5,7 @@ namespace ChristianSoronellas\BlogBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use ChristianSoronellas\BlogBundle\Entity\Tag;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Fixtures for the Tag entity
@@ -13,7 +14,7 @@ use ChristianSoronellas\BlogBundle\Entity\Tag;
  */
 class LoadTagsData extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load($manager)
+    public function load(ObjectManager $manager)
     {
         $tag1 = new Tag();
         $tag1->setTag('test tag1');

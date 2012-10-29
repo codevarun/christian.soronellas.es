@@ -1,12 +1,11 @@
-<div id="comment-{{ comment.id }}" class="comment{% if depth == 1 %} {{ cycle(['odd', 'even'], loop.index) }}{% elseif depth == 2 %} by-user{% endif %}{% if depth == 1 and loop.index is even %} alt{% endif%} thread-{{ cycle(['odd', 'even'], loop.index) }} depth-{{ depth }}">
-    <div class="comment-avatar">
-        <img alt="" class="avatar avatar-54 photo" src="{{ gravatar(comment.email) }}" />
+<div class="comment row">
+    <div class="span1 picture">
+        <img alt="gravatar of {{ comment.email }}" class="img-polaroid" src="{{ gravatar(comment.email) }}" />
     </div>
-    <div class="comment-body">
-        <div class="body">{{ comment.body }}</div>
-        <p class="comment-meta">by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}.{% if depth == 1 %} <a href="{{ post_url }}?commentTo={{ comment.id }}#respond" class="comment-reply-link">Responder</a>{% endif %}</p>
+    <div class="span11">
+        <blockquote>
+            {{ comment.body }}
+            <small>by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}</small>
+        </blockquote>
     </div>
-    {% if comment.comments|length > 0 and depth <= 2 %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': comment.comments, 'post_url': post_url, 'depth': (depth+1) } %}
-    {% endif %}
 </div>

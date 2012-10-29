@@ -1,90 +1,56 @@
-{% spaceless %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="keywords" value="{% block keywords %}christian soronellas,php,zend framework, zendframework{% endblock %}" />
-        <title>{% block title %}Christian Soronellas Web Architect{% endblock %}</title>
-        {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/style.css') }}" type="text/css" media="screen" />
-        <!--[if lt IE 8]>
-        <link rel="stylesheet" href="{{ asset('bundles/christiansoronellasblog/css/ie-fixes.css') }}" type="text/css" media="screen" />
-        <![endif]-->
-        {% endblock %}
-    </head>
-    
-    <body>
-        <div id="wrapper">	
-            <div id="header-wrapper">
-                <div id="nav">
-                    {% render 'ChristianSoronellasBlogBundle:Pages:pages' %}
-                </div>
-                <div id="header">
-                    {% block headTitle %}
-                    <a class="logo" href="{{ url('root') }}">Christian Soronellas Web Architect</a>
-                    {% endblock %}
-                </div>
-            </div>
-            <hr />
-            <div id="content">
-                {% block content %}
-                {% endblock %}
-            </div>
-            <hr />
-            <div id="sidebar">
-                <div class="certifications">
-                    <a style="border:none;" href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend certified engineer PHP 5.3" src="{{ asset('bundles/christiansoronellasblog/images/zce-php5-3-logo.gif') }}"></a>&nbsp;
-                    <a style="border:none;" href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend framework certified engineer" src="{{ asset('bundles/christiansoronellasblog/images/zf-zce-logo.gif') }}"></a>
-                </div>
-                <div class="section first">
-                    <h2>About me</h2>
-                    <p>PHP 5.3 & Zend Framework certified. Agile enthusiast. Proud user of Zend Framework (and at times Symfony2). I like to feel as a ninja when coding PHP and as a samurai when coding Zend Framework. At my free times I like to go running and to do windsurf & surfing. Let's PHP? :)</p>
-                </div>
-                <div class="section">
-                    <h2>Site friends</h2>
-                    <ul class="xoxo blogroll">
-                        <li><a href="http://blog.inspiroh.com/" rel="friend met co-worker colleague" title="Equilibrio y control en el desarrollo web" target="_blank">Front-end Zend</a></li>
-                        <li><a href="http://ricardclau.com" rel="friend met co-worker colleague" target="_blank">Ricard Clau</a></li>
-                        <li><a href="http://rubengarrido.cat">Ruben Garrido</a></li>
-                        <li><a href="http://shesinpanties.tumblr.com" rel="friend met co-worker" target="_blank">shesinpanties</a></li>
-                        <li><a href="http://blog.quepimquepam.com/" rel="friend met co-worker colleague external" target="_blank">Blog quepimquepam.com</a></li>
-                    </ul>
-                </div>
-                <div class="section">
-                    <h2>MY @TWITTER</h2>
-                    {% render "KnpLastTweetsBundle:Twitter:lastTweets" with {'username': 'theUniC', 'age': 5}, {'standalone': true} %}
-                </div>
-            </div>
-            <hr />
-            <div id="footer">
-                <p>A theme by <a href="http://www.rodrigogalindez.com" rel="nofolow">Rodrigo Galindez</a></p>
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+{% stylesheets '@ChristianSoronellasBlogBundle/Resources/public/css/*.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block headScripts %}
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{{ asset('/components/html5shiv/dist/html5shiv.js') }}"></script>
+<![endif]-->
+{% endblock %}
+
+{% block body %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{{ url('root') }}">ChristianSoronellas Web Architect</a>
+                {% render 'ChristianSoronellasBlogBundle:Pages:pages' %}
             </div>
         </div>
-        {% if code is defined %}
-        <h2>Code behind this page</h2>
-        <div class="symfony-content">{{ code|raw }}</div>
-        {% endif %}
-        {% javascripts '@ChristianSoronellasBlogBundle/Resources/public/js/LAB.min.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-        <script type="text/javascript">
-            // <![CDATA[
-            {% block javascripts %}
-            var uvOptions = {};
-            $LAB
-            .script('http://code.jquery.com/jquery-1.7.1.min.js')
-            .script('http://widget.uservoice.com/yxgPNGS9jhCcT6ukla3j7w.js')
-            .wait(function() {
-                $(window).load(function(event) {
-                    $('#nav li').each(function() {
-                        $(this).mouseover(function() { this.className += ' sfhover'; })
-                               .mouseout(function() { this.className=this.className.replace(new RegExp(' sfhover\\b'), ''); });
-                    });
-                });
-            });
-            {% endblock %}
-            // ]]>
-        </script>
-    </body>
-</html>
-{% endspaceless %}
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="span2">
+                    <a href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend certified engineer PHP 5.3" src="{{ asset('/bundles/christiansoronellasblog/images/zce-php5-3-logo.gif') }}"></a>
+                    &nbsp;<a href="http://www.zend.com/en/yellow-pages#show-ClientCandidateID=ZEND016877" target="_blank" rel="external"><img alt="zend framework certified engineer" src="{{ asset('/bundles/christiansoronellasblog/images/zf-zce-logo.gif') }}"></a>
+                </div>
+                <div class="span10">
+                    <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es_ES"><img alt="Licencia de Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Christian Soronellas Web Architect</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es_ES">Creative Commons Reconocimiento-CompartirIgual 3.0 Unported License</a>.<br />Creado a partir de la obra en <a xmlns:dct="http://purl.org/dc/terms/" href="http://christian.soronellas.es" rel="dct:source">http://christian.soronellas.es</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% if code is defined %}
+    <h2>Code behind this page</h2>
+    <div class="symfony-content">{{ code|raw }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts
+    'components/jquery/jquery.js'
+    'components/bootstrap/js/*.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

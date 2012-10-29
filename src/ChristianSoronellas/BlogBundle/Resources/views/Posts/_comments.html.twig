@@ -1,12 +1,6 @@
-{% if depth == 1 %}
-<div id="comments" class="post-comments">
-    <h2><a name="comments">{{ total_comments }} comments</a></h2>
+<section class="comments">
+    <h3>{% transchoice total_comments %}{1} %total_comments% comment|]1,Inf] %total_comments% comments{% endtranschoice %}<a name="comments"></a></h3>
     {% for comment in comments %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'post_url': post_url, 'depth': depth } %}
+        {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment } %}
     {% endfor %}
-</div>
-{% else %}
-    {% for comment in comments %}
-    {% include 'ChristianSoronellasBlogBundle:Posts:_comment.html.twig' with { 'comment': comment, 'post_url': post_url, 'depth': depth } %}
-    {% endfor %}
-{% endif %}
+</section>

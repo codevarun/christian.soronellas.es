@@ -1,17 +1,19 @@
 {% extends 'ChristianSoronellasBlogBundle::layout.html.twig' %}
 
-{% block headTitle %}
-<h1><a class="logo" href="{{ url('root') }}">Christian Soronellas Web Architect</a></h1>
-{% endblock %}
-
-{% block content_header '' %}
-
 {% block content %}
-    {% if posts|length > 0 %}    
-        {% for post in posts %}
-        {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': false } %}
-        {% endfor %}
-    {% else %}
-    <p>There are no posts!</p>
-    {% endif %}
+    <header>
+        <div class="hero-unit">
+            <h1>Christian Soronellas Web Architect</h1>
+            <p>... Because clean code still matters</p>
+        </div>
+    </header>
+    <section class="posts">
+        {% if posts|length > 0 %}
+            {% for post in posts %}
+                {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
+            {% endfor %}
+        {% else %}
+            <p>There are no posts!</p>
+        {% endif %}
+    </section>
 {% endblock %}

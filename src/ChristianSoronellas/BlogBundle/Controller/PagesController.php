@@ -33,27 +33,6 @@ class PagesController extends Controller
      */
     public function pagesAction()
     {
-        $pages = $this->getDoctrine()
-                      ->getRepository('ChristianSoronellasBlogBundle:Page')
-                      ->findAll();
-        
-        return array('pages' => $pages);
-    }
-    
-    /**
-     * The page show action
-     * 
-     * @Route("/pages/{slug}", name="page")
-     * @Template()
-     */
-    public function pageAction($slug)
-    {
-        $pages = $this->getDoctrine()
-                      ->getRepository('ChristianSoronellasBlogBundle:Page')
-                      ->findBySlug($slug);
-        
-        return array(
-            'page' => array_shift($pages)
-        );
+        return array();
     }
 }

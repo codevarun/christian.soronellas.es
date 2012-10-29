@@ -5,7 +5,6 @@ namespace ChristianSoronellas\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContext;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -101,23 +100,6 @@ class Comment
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;
-    
-    /**
-     * The comment's parent
-     * 
-     * @var \ChristianSoronellas\BlogBundle\Entity\Comment $parentComment
-     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="comments")
-     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id") 
-     */
-    private $parentComment;
-    
-    /**
-     * The subcomments of this comment
-     * 
-     * @var \Doctrine\Commons\Collections\ArrayCollection
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="parentComment")
-     */
-    private $comments;
     
     /**
      * Class constructor
@@ -235,26 +217,6 @@ class Comment
     public function getPost()
     {
         return $this->post;
-    }
-
-    /**
-     * Set parentComment
-     *
-     * @param ChristianSoronellas\BlogBundle\Entity\Comment $parentComment
-     */
-    public function setParentComment(\ChristianSoronellas\BlogBundle\Entity\Comment $parentComment)
-    {
-        $this->parentComment = $parentComment;
-    }
-
-    /**
-     * Get parentComment
-     *
-     * @return ChristianSoronellas\BlogBundle\Entity\Comment 
-     */
-    public function getParentComment()
-    {
-        return $this->parentComment;
     }
 
     /**

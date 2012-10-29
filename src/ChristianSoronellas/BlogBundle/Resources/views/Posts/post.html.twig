@@ -7,38 +7,66 @@
 {% block content %}
 {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': true } %}
 {% if post.commentsEnabled %}
-<div class="post-comments comment-form" id="respond">
-    <h2><a name="comments">Leave your comment</a></h2>
-    {% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">{{ app.session.flash('notice') }}</div>
-    {% endif %}
-    <form action="{{ path('post_comment', { 'slug': post.slug }) }}" method="post" novalidate="novalidate" {{ form_enctype(form) }}>
-        <table>
-            <tbody>
-                <tr>
-                    <th>{{ form_label(form.name) }}<p>Required. {{ form_errors(form.name) }}</p></th>
-                    <td>{{ form_widget(form.name)}}</td>
-                </tr>
-                <tr>
-                    <th>{{ form_label(form.email) }}<p>Required. Not published. {{ form_errors(form.email) }}</p></th>
-                    <td>{{ form_widget(form.email)}}</td>
-                </tr>
-                <tr>
-                    <th>{{ form_label(form.website) }}<p>If you have one. {{ form_errors(form.website) }}</p></th>
-                    <td>{{ form_widget(form.website)}}</td>
-                </tr>
-                <tr>
-                    <th>{{ form_label(form.body) }} {{ form_errors(form.body) }}</th>
-                    <td>{{ form_widget(form.body)}}</td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td><input type="submit" value="Submit" tabindex="5" id="submit" name="submit" /></td>
-                </tr>
-            </tbody>
-        </table>
-        {{ form_rest(form) }}
-    </form>
+<h3>Leave your comment<a name="comments"></a></h3>
+
+{% if app.session.hasFlash('notice') %}
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <h4>Good!</h4>
+    {{ app.session.flash('notice') }}
 </div>
+{% endif %}
+
+<form class="form-horizontal" action="{{ path('post_comment', { 'slug': post.slug }) }}" method="post" novalidate="novalidate" {{ form_enctype(form) }}>
+    <div class="control-group{% if form.name.vars.errors|length > 0 %} error{% endif %}">
+        {{ form_label(form.name, 'Your name', { 'label_attr': { 'class': 'control-label' }}) }}
+        <div class="controls">
+            {{ form_widget(form.name) }}
+            {% if form.name.vars.errors|length > 0 %}
+                <span class="help-inline">{{ form_errors(form.name) }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="control-group{% if form.email.vars.errors|length > 0 %} error{% endif %}">
+        {{ form_label(form.email, 'Your e-mail', { 'label_attr': { 'class': 'control-label' }}) }}
+        <div class="controls">
+            {{ form_widget(form.email) }}
+            {% if form.email.vars.errors|length > 0 %}
+                <span class="help-inline">{{ form_errors(form.email) }}</span>
+            {% else %}
+                <span class="help-inline">Will not be publised</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="control-group{% if form.website.vars.errors|length > 0 %} error{% endif %}">
+        {{ form_label(form.website, 'Website', { 'label_attr': { 'class': 'control-label' }}) }}
+        <div class="controls">
+            {{ form_widget(form.website) }}
+            {% if form.website.vars.errors|length > 0 %}
+                <span class="help-inline">{{ form_errors(form.website) }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="control-group{% if form.body.vars.errors|length > 0 %} error{% endif %}">
+        {{ form_label(form.body, 'Your comment', { 'label_attr': { 'class': 'control-label' }}) }}
+        <div class="controls">
+            {{ form_widget(form.body, { 'attr': { 'class': 'input-xxlarge' } }) }}
+            {% if form.body.vars.errors|length > 0 %}
+                <span class="help-inline">{{ form_errors(form.body) }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            <i class="icon-comment icon-white"></i>
+            Comment
+        </button>
+    </div>
+    {{ form_rest(form) }}
+</form>
 {% endif %}
 {% endblock %}
