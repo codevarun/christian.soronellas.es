@@ -2,6 +2,51 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>Christian Soronellas Web Architect<small>contact form</small></h1>
+        <h1>Christian Soronellas Web Architect</h1>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <form class="form-horizontal" name="contact-form" method="post" action="{{ path('contact') }}">
+                <fieldset>
+                    <legend>Send me a message!</legend>
+                    <div class="control-group{% if form.name.vars.errors|length > 0 %} error{% endif %}">
+                        {{ form_label(form.name, 'Your name', { 'label_attr': { 'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_widget(form.name) }}
+                            {% if form.name.vars.errors|length > 0 %}
+                                <span class="help-inline">{{ form_errors(form.name) }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group{% if form.email.vars.errors|length > 0 %} error{% endif %}">
+                        {{ form_label(form.email, 'Your e-mail', { 'label_attr': { 'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_widget(form.email) }}
+                            {% if form.email.vars.errors|length > 0 %}
+                                <span class="help-inline">{{ form_errors(form.email) }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="control-group{% if form.body.vars.errors|length > 0 %} error{% endif %}">
+                        {{ form_label(form.body, 'Message', { 'label_attr': { 'class': 'control-label'}}) }}
+                        <div class="controls">
+                            {{ form_widget(form.body, { 'attr': { 'class': 'input-xxlarge' }}) }}
+                            {% if form.body.vars.errors|length > 0 %}
+                                <span class="help-inline">{{ form_errors(form.body) }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-envelope icon-white"></i>
+                            Send!
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 {% endblock %}

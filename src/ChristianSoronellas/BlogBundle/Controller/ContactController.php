@@ -35,6 +35,7 @@ class ContactController extends Controller
     public function contactAction()
     {
         $form = $this->createForm(new ContactType());
+        $request = $this->getRequest();
 
         return array(
             'form' => $form->createView()
