@@ -71,6 +71,7 @@ class AdminPostsController extends Controller
         $entity->setTitle('Título de la entrada');
         $entity->setBody('<p>Cuerpo de la entrada</p>');
         $entity->setCreatedAt(new \DateTime());
+        $entity->setSlug(md5('new-entry'));
 
         return array(
             'post' => $entity
@@ -136,7 +137,7 @@ class AdminPostsController extends Controller
      * Edits an existing Post entity.
      *
      * @Route("/{slug}/update", name="admin_post_update")
-     * @Method("post")
+     * @Method({"POST", "PUT"})
      * @Template("ChristianSoronellasBlogBundle:AdminPosts:edit.html.twig")
      */
     public function updateAction($slug)
@@ -146,7 +147,8 @@ class AdminPostsController extends Controller
         $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Post entity.');
+            // The post doesn't exists, so create it
+            return $this->forward('ChristianSoronellasBlogBundle:AdminPosts:create');
         }
 
         $editForm   = $this->createForm(new PostType(), $entity);

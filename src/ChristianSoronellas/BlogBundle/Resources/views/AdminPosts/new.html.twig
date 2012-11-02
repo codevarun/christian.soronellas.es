@@ -16,7 +16,7 @@
 
 {% block content %}
 <div xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:dcterms="http://purl.org/dc/terms/" about="{{ path("root") }}" rel="dcterms:hasPart" rev="dcterms:partOf">
-    {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': entity, 'showComments': false    } %}
+    {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post, 'showComments': false } %}
 </div>
 {% endblock %}
 
@@ -43,7 +43,7 @@ $LAB
 .wait(function() {
     $(document).ready(function() {
         $('body').midgardCreate({
-            url: function() { return '{{ path('admin_post_create') }}'; }
+            url: function() { return '{{ path('admin_post_update', { slug: post.slug }) }}'; }
         });
     });
 });

@@ -37,6 +37,29 @@ class ContactController extends Controller
         $form = $this->createForm(new ContactType());
         $request = $this->getRequest();
 
+        if ($request->isMethod('POST')) {
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                $data = $form->getData();
+
+                $from = $data['email'];
+                if (isset($data['name'])) {
+                    $from = array($data['email'] => $data['name']);
+                }
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('New message from the blog')
+                    ->setFrom($from)
+                    ->setTo($this->container->getParameter('contact_email'))
+                    ->setBody($data['body'])
+                ;
+
+                $this->get('mailer')->send($message);
+                $this->getRequest()->getSession()->getFlashBag()->add('notice', 'Message sent successfully!');
+            }
+        }
+
         return array(
             'form' => $form->createView()
         );
