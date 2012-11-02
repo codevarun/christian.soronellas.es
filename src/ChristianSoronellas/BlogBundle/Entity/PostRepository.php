@@ -13,5 +13,19 @@ use ChristianSoronellas\BlogBundle\Entity\Post;
  */
 class PostRepository extends EntityRepository
 {
-    
+    /**
+     * Find all posts ordered by date
+     *
+     * @return \ChristianSoronellas\BlogBundle\Entity\Post[]
+     */
+    public function findAllOrderedByDate()
+    {
+        $q = $this->getEntityManager()->createQuery(
+            'SELECT p
+             FROM ChristianSoronellasBlogBundle:Post p
+             ORDER BY p.created_at DESC'
+        );
+
+        return $q->getResult();
+    }
 }

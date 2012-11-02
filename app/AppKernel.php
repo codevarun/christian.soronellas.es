@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new Gregwar\FormBundle\GregwarFormBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new ChristianSoronellas\BackofficeBundle\ChristianSoronellasBackofficeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

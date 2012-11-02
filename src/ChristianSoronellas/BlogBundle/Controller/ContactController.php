@@ -37,6 +37,14 @@ class ContactController extends Controller
         $form = $this->createForm(new ContactType());
         $request = $this->getRequest();
 
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $request->getSession()->getFlashBag('notice', 'Message sent succesfully!');
+            }
+        }
+
         return array(
             'form' => $form->createView()
         );

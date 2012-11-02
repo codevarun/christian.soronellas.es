@@ -1,5 +1,5 @@
 <?php
-namespace ChristianSoronellas\BlogBundle\Controller;
+namespace ChristianSoronellas\BackofficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return $this->forward('ChristianSoronellasBlogBundle:AdminPosts:index');
+        return $this->forward('ChristianSoronellasBackofficeBundle:AdminPosts:index');
     }
 
     /**
