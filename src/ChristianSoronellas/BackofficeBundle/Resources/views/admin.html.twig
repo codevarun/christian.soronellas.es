@@ -1,0 +1,61 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {% stylesheets
+        '@ChristianSoronellasBlogBundle/Resources/public/css/*.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block headScripts %}
+<script type="text/javascript" src="{{ asset('/components/html5shiv/src/html5shiv.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">Christian Soronellas</a>
+                {% block navigation %}
+                <ul class="nav">
+                    <li class="active"><a href="#">Entradas</a></li>
+                    <li><a href="#">Tags</a></li>
+                </ul>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="page-header">
+            <h1>
+                {% block pagetitle %}
+                    Zona de adminitración
+                {% endblock %}
+                <small>
+                    {% block pagesubtitle %}
+                        Bienvenido a la zona de administración
+                    {% endblock %}
+                </small>
+            </h1>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% if code is defined %}
+        <h2>Code behind this page</h2>
+        <div class="symfony-content">{{ code|raw }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '/components/jquery/jquery.js'
+        '/components/bootstrap/js/*.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

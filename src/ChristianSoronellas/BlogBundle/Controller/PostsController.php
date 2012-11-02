@@ -47,13 +47,11 @@ class PostsController extends Controller
         }
 
         $form = $this->createForm(new CommentType());
-        if (null !== ($commentId = $this->getRequest()->get('commentTo'))) {
-            $comment = new Comment();
-            $comment->setParentComment($this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Comment')->find((int) $commentId));
-            $form->setData($comment);
-        }
 
-        return array('post' => $post, 'form' => $form->createView());
+        return array(
+            'post' => $post,
+            'form' => $form->createView()
+        );
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace ChristianSoronellas\BlogBundle\Controller;
+namespace ChristianSoronellas\BackofficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -24,7 +24,7 @@ class AdminPostsController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findAll();
 
@@ -41,7 +41,7 @@ class AdminPostsController extends Controller
      */
     public function showAction($slug)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
@@ -90,10 +90,10 @@ class AdminPostsController extends Controller
         $entity  = new Post();
         $request = $this->getRequest();
         $form    = $this->createForm(new PostType(), $entity);
-        $form->bindRequest($request);
+        $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -115,7 +115,7 @@ class AdminPostsController extends Controller
      */
     public function editAction($slug)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
@@ -142,7 +142,7 @@ class AdminPostsController extends Controller
      */
     public function updateAction($slug)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
@@ -156,7 +156,7 @@ class AdminPostsController extends Controller
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
@@ -183,10 +183,10 @@ class AdminPostsController extends Controller
         $form = $this->createDeleteForm($slug);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
             if (!$entity) {

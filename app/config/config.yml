@@ -27,6 +27,7 @@ assetic:
     use_controller: false
     bundles:
         - "ChristianSoronellasBlogBundle"
+        - "ChristianSoronellasBackofficeBundle"
     filters:
         cssrewrite: ~
         # closure:

@@ -1,3 +1,8 @@
+christian_soronellas_backoffice:
+    resource: "@ChristianSoronellasBackofficeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 ChristianSoronellasBlogBundle:
     resource: "@ChristianSoronellasBlogBundle/Controller/"
     type:     annotation
