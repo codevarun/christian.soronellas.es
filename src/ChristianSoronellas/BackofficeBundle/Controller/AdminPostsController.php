@@ -66,15 +66,11 @@ class AdminPostsController extends Controller
     public function newAction()
     {
         $entity = new Post();
-
-        // Fill the entity with some data
-        $entity->setTitle('Título de la entrada');
-        $entity->setBody('<p>Cuerpo de la entrada</p>');
-        $entity->setCreatedAt(new \DateTime());
-        $entity->setSlug(md5('new-entry'));
+        $form = $this->createForm(new \ChristianSoronellas\BackofficeBundle\Form\PostType());
 
         return array(
-            'post' => $entity
+            'post' => $entity,
+            'form' => $form->createView()
         );
     }
 

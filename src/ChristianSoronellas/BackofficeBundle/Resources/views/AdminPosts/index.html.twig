@@ -1,22 +1,12 @@
 {% extends 'ChristianSoronellasBackofficeBundle::admin.html.twig' %}
 
-{% block navigation %}
-<ul class="nav">
-    <li class="active"><a href="#">Entradas</a></li>
-    <li><a href="#">Tags</a></li>
-</ul>
-{% endblock %}
-
 {% block pagetitle %}Entradas{% endblock %}
 {% block pagesubtitle %}Lista de las últimas entradas del blog{% endblock %}
 
 {% block content %}
 <div class="row">
-    <div class="span-one-third">
-        <p>Lista con las ultimas entradas introducidas en el blog.</p>
-    </div>
-    <div class="span-two-thirds">
-        <table>
+    <div class="span12">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Título</th>
@@ -30,15 +20,10 @@
                 <tr>
                     <td><a href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">{{ entity.title }}</a></td>
                     <td>{% if entity.createdat %}{{ entity.createdat|date('d/m/Y') }}{% endif%}</td>
+                    <td>{% if entity.state == 1 %}<span class="label label-warning">Borrador</span>{% else %}<span class="label label-success">Publicada</span>{% endif %}</td>
                     <td>
-                        {% if entity.state == 1 %}
-                        <span class="label warning">Borrador</span>
-                        {% else %}
-                        <span class="label success">Publicada</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a class="btn default" href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">Ver</a> <a class="btn default" href="{{ path('admin_post_edit', { 'slug': entity.slug }) }}">Editar</a>
+                        <a class="btn btn-info" href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">Ver</a>&nbsp;
+                        <a class="btn btn-success" href="{{ path('admin_post_edit', { 'slug': entity.slug }) }}">Editar</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -46,7 +31,7 @@
         </table>
         
         <div class="well">
-            <a href="{{ path('admin_post_new') }}" class="btn large primary">Crear nueva entrada</a>
+            <a href="{{ path('admin_post_new') }}" class="btn btn-large btn-primary">Crear nueva entrada</a>
         </div>
     </div>
 </div>

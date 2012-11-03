@@ -2,3 +2,5 @@ body{margin-top:60px;}
 article p{text-align:justify;}
 .comment{margin-bottom:1em;}
 .share-buttons{margin-top:1em;}
+.full-size{width:100%;}
+.fontsize2em{font-size:2em !important;height:auto !important;}
