@@ -19,7 +19,7 @@
         "jms/security-extra-bundle": "1.2.0",
         "jms/di-extra-bundle": "1.1.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle": "1.1.*",
+        "stof/doctrine-extensions-bundle": "dev-master",
         "ornicar/gravatar-bundle": "dev-master",
         "knplabs/knp-last-tweets-bundle": "dev-master",
         "ornicar/akismet-bundle": "dev-master",

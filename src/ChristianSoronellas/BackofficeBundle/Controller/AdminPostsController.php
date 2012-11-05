@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use ChristianSoronellas\BlogBundle\Entity\Post;
-use ChristianSoronellas\BlogBundle\Form\PostType;
+use ChristianSoronellas\BackofficeBundle\Form\PostType;
 
 /**
  * Post controller.
@@ -34,30 +34,6 @@ class AdminPostsController extends Controller
     }
 
     /**
-     * Finds and displays a Post entity.
-     *
-     * @Route("/{slug}/show", name="admin_post_show")
-     * @Template()
-     */
-    public function showAction($slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Post entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($slug);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView()
-        );
-    }
-
-    /**
      * Displays a form to create a new Post entity.
      *
      * @Route("/new", name="admin_post_new")
@@ -66,7 +42,7 @@ class AdminPostsController extends Controller
     public function newAction()
     {
         $entity = new Post();
-        $form = $this->createForm(new \ChristianSoronellas\BackofficeBundle\Form\PostType());
+        $form = $this->createForm(new PostType());
 
         return array(
             'post' => $entity,
@@ -93,8 +69,8 @@ class AdminPostsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_post_show', array('slug' => $entity->getSlug())));
-
+            $request->getSession()->getFlashBag()->add('notice', 'Post created successfully!');
+            return $this->redirect($this->generateUrl('admin_post'));
         }
 
         return array(
@@ -106,50 +82,30 @@ class AdminPostsController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{slug}/edit", name="admin_post_edit")
+     * @Route("/{id}/edit", name="admin_post_edit")
      * @Template()
      */
-    public function editAction($slug)
+    public function editAction(Post $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Post entity.');
-        }
-
         $editForm = $this->createForm(new PostType(), $entity);
-        $deleteForm = $this->createDeleteForm($slug);
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         );
     }
 
     /**
      * Edits an existing Post entity.
      *
-     * @Route("/{slug}/update", name="admin_post_update")
+     * @Route("/{id}/update", name="admin_post_update")
      * @Method({"POST", "PUT"})
      * @Template("ChristianSoronellasBlogBundle:AdminPosts:edit.html.twig")
      */
-    public function updateAction($slug)
+    public function updateAction(Post $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
-
-        if (!$entity) {
-            // The post doesn't exists, so create it
-            return $this->forward('ChristianSoronellasBlogBundle:AdminPosts:create');
-        }
-
         $editForm   = $this->createForm(new PostType(), $entity);
-        $deleteForm = $this->createDeleteForm($slug);
-
         $request = $this->getRequest();
 
         $editForm->bind($request);
@@ -158,13 +114,13 @@ class AdminPostsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_post_edit', array('slug' => $slug)));
+            $request->getSession()->getFlashBag('notice', 'The post has been updated!');
+            return $this->redirect($this->generateUrl('admin_post'));
         }
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         );
     }
 
@@ -196,10 +152,32 @@ class AdminPostsController extends Controller
         return $this->redirect($this->generateUrl('admin_post'));
     }
 
-    private function createDeleteForm($slug)
+    /**
+     * Publishes a non published entry
+     *
+     * @param \ChristianSoronellas\BlogBundle\Entity\Post $entity
+     *
+     * @Route("/{id}/publish", name="admin_post_publish")
+     */
+    public function publishAction(Post $entity)
     {
-        return $this->createFormBuilder(array('slug' => $slug))
-            ->add('slug', 'hidden')
+        $em = $this->getDoctrine()->getManager();
+
+        $entity
+            ->setState(Post::STATE_COMPLETE)
+        ;
+
+        $em->persist($entity);
+        $em->flush();
+        $this->getRequest()->getSession()->getFlashBag()->add('notice', 'Post published succesfully!');
+
+        return $this->redirect($this->generateUrl('admin_post'));
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
             ->getForm()
         ;
     }

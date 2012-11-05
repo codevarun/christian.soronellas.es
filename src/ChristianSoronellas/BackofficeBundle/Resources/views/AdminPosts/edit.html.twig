@@ -1,38 +1,45 @@
 {% extends 'ChristianSoronellasBackofficeBundle::admin.html.twig' %}
 
-{% block navigation %}
-<ul class="nav">
-    <li class="active"><a href="#">Entradas</a></li>
-    <li><a href="#">Tags</a></li>
-</ul>
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@ChristianSoronellasBackofficeBundle/Resources/public/css/*.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
 {% endblock %}
 
 {% block pagetitle %}Entradas{% endblock %}
 {% block pagesubtitle %}editar la entrada "{{ entity.title }}"{% endblock %}
 
 {% block content %}
-<div class="container">
-    <form>
-        <fieldset>
-            <legend>{{ entity.title }} {% if entity.state == 1 %}<span class="label warning">Borrador</span>{% else %}<span class="label success">Publicada</span>{% endif %}</legend>
+<form method="post" action="{{ path('admin_post_update', { 'id': entity.id }) }}" {{ form_enctype(form) }}>
+    {{ form_widget(form.title, { 'attr': { 'class': 'input-xxlarge fontsize2em full-size', 'placeholder': 'Type in the post title' } }) }}
+    {{ form_errors(form.title) }}
 
-<form action="{{ path('admin_post_update', { 'slug': entity.slug }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+    {{ form_widget(form.body) }}
+    {{ form_errors(form.body) }}
+
+    <fieldset>
+        <legend>Post settings</legend>
+        {{ form_row(form.commentsEnabled, { 'label': 'Enable comments?', 'attr': { 'checked': true } }) }}
+    </fieldset>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            <i class="icon-white icon-ok"></i>
+            Edit post!
+        </button>
+    </div>
+    {{ form_rest(form) }}
 </form>
+{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_post') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('admin_post_delete', { 'slug': entity.slug }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@ChristianSoronellasBackofficeBundle/Resources/public/js/*.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

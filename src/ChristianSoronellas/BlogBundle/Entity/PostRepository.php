@@ -14,15 +14,16 @@ use ChristianSoronellas\BlogBundle\Entity\Post;
 class PostRepository extends EntityRepository
 {
     /**
-     * Find all posts ordered by date
+     * Find all posts published ordered by date
      *
      * @return \ChristianSoronellas\BlogBundle\Entity\Post[]
      */
-    public function findAllOrderedByDate()
+    public function findPublishedOrderedByCreatedAt()
     {
         $q = $this->getEntityManager()->createQuery(
             'SELECT p
              FROM ChristianSoronellasBlogBundle:Post p
+             WHERE p.state = 2
              ORDER BY p.created_at DESC'
         );
 

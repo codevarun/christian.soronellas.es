@@ -25,9 +25,8 @@ class PostsController extends Controller
      */
     public function indexAction()
     {
-        $posts = $this->getDoctrine()
-                      ->getRepository('ChristianSoronellasBlogBundle:Post')
-                      ->findAll();
+        $postsRepository = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post');
+        $posts = $postsRepository->findPublishedOrderedByCreatedAt();
 
         return array('posts' => $posts);
     }

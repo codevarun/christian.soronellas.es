@@ -4,6 +4,14 @@
 {% block pagesubtitle %}Lista de las últimas entradas del blog{% endblock %}
 
 {% block content %}
+{% if app.session.flashBag.has('notice') %}
+<div class="alert alert-success" data-dismiss="alert">
+    <h4>Good Job!</h4>
+    {% for flashmessage in app.session.flashbag.get('notice') %}
+    <p>{{ flashmessage }}</p>
+    {% endfor %}
+</div>
+{% endif %}
 <div class="row">
     <div class="span12">
         <table class="table table-hover">
@@ -18,12 +26,13 @@
             <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">{{ entity.title }}</a></td>
+                    <td><a href="{{ path('admin_post_edit', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                     <td>{% if entity.createdat %}{{ entity.createdat|date('d/m/Y') }}{% endif%}</td>
                     <td>{% if entity.state == 1 %}<span class="label label-warning">Borrador</span>{% else %}<span class="label label-success">Publicada</span>{% endif %}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ path('admin_post_show', { 'slug': entity.slug }) }}">Ver</a>&nbsp;
-                        <a class="btn btn-success" href="{{ path('admin_post_edit', { 'slug': entity.slug }) }}">Editar</a>
+                        <a class="btn btn-primary" rel="external" target="_blank" href="{{ path('post', { 'year': entity.createdAt|date('Y'), 'month': entity.createdAt|date('m'), 'day': entity.createdAt|date('d'), 'slug': entity.slug }) }}">Ver</a>
+                        &nbsp;<a class="btn btn-success" href="{{ path('admin_post_edit', { 'id': entity.id }) }}">Editar</a>
+                        {% if entity.state != 2 %}&nbsp;<a class="btn btn-success" href="{{ path('admin_post_publish', { 'id': entity.id }) }}">Publicar</a>{% endif %}
                     </td>
                 </tr>
             {% endfor %}

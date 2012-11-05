@@ -1,5 +1,4 @@
 {% set post_url = path('post', { 'year': post.createdAt|date('Y'), 'month': post.createdAt|date('m'), 'day': post.createdAt|date('d'), 'slug': post.slug } ) %}
-{% set post_comments_num = post.approvedComments|length %}
 <article>
     <div class="page-header">
         {% if showComments|default(false) %}<h1 property="dcterms:title">{% else %}<h2 property="dcterms:title">{% endif %}{{ post.title }}{% if showComments|default(false) %}</h1>{% else %} <small><a href="{{ post_url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">read entire article</a></small></h2>{% endif %}
@@ -14,7 +13,7 @@
     </div>
     {% endif %}
 
-    {% if showComments|default(false) and post_comments_num > 0 %}
-        {% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.approvedComments, 'total_comments': post_comments_num } %}
+    {% if showComments|default(false) and post.approvedComments|length > 0 %}
+        {% include 'ChristianSoronellasBlogBundle:Posts:_comments.html.twig' with { 'comments': post.approvedComments, 'total_comments': post.approvedComments|length } %}
     {% endif %}
 </article>

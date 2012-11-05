@@ -13,7 +13,7 @@
 {% block pagesubtitle %}Crear nueva entrada{% endblock %}
 
 {% block content %}
-<form method="post" action="{{ path('admin_post_new') }}" {{ form_enctype(form) }}>
+<form method="post" action="{{ path('admin_post_create') }}" {{ form_enctype(form) }}>
     {{ form_widget(form.title, { 'attr': { 'class': 'input-xxlarge fontsize2em full-size', 'placeholder': 'Type in the post title' } }) }}
     {{ form_errors(form.title) }}
 
@@ -22,7 +22,7 @@
 
     <fieldset>
         <legend>Post settings</legend>
-        {{ form_row(form.commentsEnabled, { 'label': 'Enable comments?' }) }}
+        {{ form_row(form.commentsEnabled, { 'label': 'Enable comments?', 'attr': { 'checked': true } }) }}
     </fieldset>
 
     <div class="form-actions">
