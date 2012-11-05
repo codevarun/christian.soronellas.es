@@ -1,0 +1,39 @@
+{% extends 'ChristianSoronellasBackofficeBundle::admin.html.twig' %}
+
+{% block pagetitle %}Comentarios{% endblock %}
+{% block pagesubtitle %}Lista de los últimos comentarios del blog{% endblock %}
+
+{% block content %}
+{% if app.session.flashBag.has('notice') %}
+<div class="alert alert-success" data-dismiss="alert">
+    <h4>Good Job!</h4>
+    {% for flashmessage in app.session.flashbag.get('notice') %}
+    <p>{{ flashmessage }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="row">
+    <div class="span12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in comments %}
+                <tr class="{% if comment.state == 1 %}warning{% elseif comment.state == 2 %}success{% elseif comment.state ==  %}">
+                    <td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="well">
+            <a href="{{ path('admin_post_new') }}" class="btn btn-large btn-primary">Crear nueva entrada</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="comment row">
+    <div class="span1 picture">
+        <img alt="gravatar of {{ comment.email }}" class="img-polaroid" src="{{ gravatar(comment.email) }}" />
+    </div>
+    <div class="span11">
+        <blockquote>
+            {{ comment.body }}
+            <small>by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}</small>
+        </blockquote>
+    </div>
+</div>

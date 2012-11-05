@@ -127,7 +127,7 @@ class AdminPostsController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{slug}/delete", name="admin_post_delete")
+     * @Route("/{id}/delete", name="admin_post_delete")
      * @Method("post")
      */
     public function deleteAction($slug)
