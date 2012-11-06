@@ -96,8 +96,7 @@ class Comment
     /**
      * @var \ChristianSoronellas\BlogBundle\Entity\Post $post
      * 
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="posts")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      */
     private $post;
     
@@ -162,7 +161,7 @@ class Comment
     /**
      * Set created_at
      *
-     * @param datetime $createdAt
+     * @param \Datetime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -172,7 +171,7 @@ class Comment
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return \Datetime
      */
     public function getCreatedAt()
     {
@@ -182,7 +181,7 @@ class Comment
     /**
      * Set updated_at
      *
-     * @param datetime $updatedAt
+     * @param \Datetime $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -192,7 +191,7 @@ class Comment
     /**
      * Get updated_at
      *
-     * @return datetime 
+     * @return \Datetime
      */
     public function getUpdatedAt()
     {
@@ -202,7 +201,7 @@ class Comment
     /**
      * Set category
      *
-     * @param ChristianSoronellas\BlogBundle\Entity\Post $category
+     * @param \ChristianSoronellas\BlogBundle\Entity\Post $category
      */
     public function setPost(\ChristianSoronellas\BlogBundle\Entity\Post $post)
     {
@@ -212,7 +211,7 @@ class Comment
     /**
      * Get category
      *
-     * @return ChristianSoronellas\BlogBundle\Entity\Post 
+     * @return \ChristianSoronellas\BlogBundle\Entity\Post
      */
     public function getPost()
     {
@@ -222,7 +221,7 @@ class Comment
     /**
      * Add comments
      *
-     * @param ChristianSoronellas\BlogBundle\Entity\Comment $comment
+     * @param \ChristianSoronellas\BlogBundle\Entity\Comment $comment
      */
     public function addComment(\ChristianSoronellas\BlogBundle\Entity\Comment $comment)
     {
@@ -232,7 +231,7 @@ class Comment
     /**
      * Get comments
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {

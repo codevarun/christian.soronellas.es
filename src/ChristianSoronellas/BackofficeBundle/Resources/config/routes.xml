@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_home" pattern="/">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:Admin:index</default>
+    </route>
+
+    <route id="admin_dashboard" pattern="/dashboard">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:Admin:index</default>
+    </route>
+
+    <route id="admin_login" pattern="/login">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:Admin:login</default>
+    </route>
+
+    <route id="admin_post" pattern="/posts">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:index</default>
+    </route>
+
+    <route id="admin_post_new" pattern="/posts/new">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:new</default>
+    </route>
+
+    <route id="admin_post_create" pattern="/posts/create">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:create</default>
+    </route>
+
+    <route id="admin_post_edit" pattern="/posts/{id}/edit">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:edit</default>
+    </route>
+
+    <route id="admin_post_update" pattern="/posts/{id}/update">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:update</default>
+    </route>
+
+    <route id="admin_post_delete" pattern="/posts/{id}/delete">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:delete</default>
+    </route>
+
+    <route id="admin_post_publish" pattern="/posts/{id}/publish">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminPosts:publish</default>
+    </route>
+
+    <route id="admin_comment" pattern="/admin/comments">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminComments:index</default>
+    </route>
+
+    <route id="admin_comment_action" pattern="/admin/comments/{id}/perform/{action}">
+        <default key="_controller">ChristianSoronellasBackofficeBundle:AdminComments:action</default>
+        <requirement key="action">approve|refuse</requirement>
+    </route>
+
+</routes>

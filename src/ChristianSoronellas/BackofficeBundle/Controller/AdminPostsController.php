@@ -3,110 +3,120 @@
 namespace ChristianSoronellas\BackofficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use ChristianSoronellas\BlogBundle\Entity\Post;
 use ChristianSoronellas\BackofficeBundle\Form\PostType;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Post controller.
- *
- * @Route("/admin/posts")
+ * AdminPosts controller.
  */
 class AdminPostsController extends Controller
 {
     /**
      * Lists all Post entities.
-     *
-     * @Route("/", name="admin_post")
-     * @Template()
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->container->get('doctrine')->getManager();
 
         $entities = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findAll();
 
-        return array(
-            'entities' => $entities
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminPosts:index.html.twig',
+            array(
+                'entities' => $entities
+            )
         );
     }
 
     /**
      * Displays a form to create a new Post entity.
-     *
-     * @Route("/new", name="admin_post_new")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new Post();
-        $form = $this->createForm(new PostType());
+        $form = $this->container->get('form.factory')->create(new PostType(), $entity);
 
-        return array(
-            'post' => $entity,
-            'form' => $form->createView()
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminPosts:new.html.twig',
+            array(
+                'post' => $entity,
+                'form' => $form->createView()
+            )
         );
     }
 
     /**
      * Creates a new Post entity.
-     *
-     * @Route("/create", name="admin_post_create")
-     * @Method({"POST", "PUT"})
-     * @Template("ChristianSoronellasBlogBundle:AdminPosts:new.html.twig")
      */
     public function createAction()
     {
+        $request = $this->container->get('request');
+
+        if (!$request->isMethod('POST') && !$request->isMethod('PUT')) {
+            throw new HttpException(400);
+        }
+
         $entity  = new Post();
-        $request = $this->getRequest();
-        $form    = $this->createForm(new PostType(), $entity);
+        $form    = $this->container->get('form.factory')->create(new PostType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->container->get('doctrine')->getManager();
             $em->persist($entity);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Post created successfully!');
-            return $this->redirect($this->generateUrl('admin_post'));
+            return new RedirectResponse($this->container->get('router')->generate('admin_post'));
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView()
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminPosts:new.html.twig',
+            array(
+                'post' => $entity,
+                'form' => $form->createView()
+            )
         );
     }
 
     /**
      * Displays a form to edit an existing Post entity.
-     *
-     * @Route("/{id}/edit", name="admin_post_edit")
-     * @Template()
      */
-    public function editAction(Post $entity)
+    public function editAction($id)
     {
-        $editForm = $this->createForm(new PostType(), $entity);
+        $em = $this->container->get('doctrine')->getManager();
+        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneById($id);
 
-        return array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView()
+        if (!$entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $editForm = $this->container->get('form.factory')->create(new PostType(), $entity);
+
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminPosts:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form'   => $editForm->createView()
+            )
         );
     }
 
     /**
      * Edits an existing Post entity.
-     *
-     * @Route("/{id}/update", name="admin_post_update")
-     * @Method({"POST", "PUT"})
-     * @Template("ChristianSoronellasBlogBundle:AdminPosts:edit.html.twig")
      */
     public function updateAction(Post $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $editForm   = $this->createForm(new PostType(), $entity);
         $request = $this->getRequest();
+
+        if (!$request->isMethod('POST') && !$request->isMethod('PUT')) {
+            throw new HttpException(400);
+        }
+
+        $em = $this->container->get('doctrine')->getManager();
+        $editForm = $this->container->get('form.factory')->create(new PostType(), $entity);
 
         $editForm->bind($request);
 
@@ -115,53 +125,63 @@ class AdminPostsController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag('notice', 'The post has been updated!');
-            return $this->redirect($this->generateUrl('admin_post'));
+            return new RedirectResponse($this->container->get('router')->generate('admin_post'));
         }
 
-        return array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView()
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminPosts:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form'   => $editForm->createView()
+            )
         );
     }
 
     /**
      * Deletes a Post entity.
-     *
-     * @Route("/{id}/delete", name="admin_post_delete")
-     * @Method("post")
      */
     public function deleteAction($slug)
     {
-        $form = $this->createDeleteForm($slug);
         $request = $this->getRequest();
+
+        if (!$request->isMethod('POST')) {
+            throw new HttpException(400);
+        }
+
+        $form = $this->createDeleteForm($slug);
 
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->container->get('doctrine')->getManager();
             $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug($slug);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Post entity.');
+                throw new NotFoundHttpException('Unable to find Post entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_post'));
+        return new RedirectResponse($this->container->get('router')->generate('admin_post'));
     }
 
     /**
      * Publishes a non published entry
      *
      * @param \ChristianSoronellas\BlogBundle\Entity\Post $entity
-     *
-     * @Route("/{id}/publish", name="admin_post_publish")
      */
-    public function publishAction(Post $entity)
+    public function publishAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $request = $this->container->get('request');
+        $em = $this->container->get('doctrine')->getManager();
+
+        $entity = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneById($id);
+
+        if (!$entity) {
+            throw new NotFoundHttpException();
+        }
 
         $entity
             ->setState(Post::STATE_COMPLETE)
@@ -169,14 +189,14 @@ class AdminPostsController extends Controller
 
         $em->persist($entity);
         $em->flush();
-        $this->getRequest()->getSession()->getFlashBag()->add('notice', 'Post published succesfully!');
+        $request->getSession()->getFlashBag()->add('notice', 'Post published succesfully!');
 
-        return $this->redirect($this->generateUrl('admin_post'));
+        return new RedirectResponse($this->container->get('router')->generate('admin_post'));
     }
 
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
+        return $this->container->get('form.factory')->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm()
         ;

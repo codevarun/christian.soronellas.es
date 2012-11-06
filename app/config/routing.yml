@@ -1,11 +1,10 @@
-christian_soronellas_backoffice:
-    resource: "@ChristianSoronellasBackofficeBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 ChristianSoronellasBlogBundle:
     resource: "@ChristianSoronellasBlogBundle/Resources/config/routes.xml"
     prefix:   /
+
+christian_soronellas_backoffice:
+    resource: "@ChristianSoronellasBackofficeBundle/Resources/config/routes.xml"
+    prefix:   /admin
 
 login:
     pattern:   /admin/login

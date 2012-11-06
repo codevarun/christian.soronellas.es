@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+    public function findAllOrderedByCreatedAt()
+    {
+        $q = $this->getEntityManager()->createQuery(
+            'SELECT c, p
+             FROM ChristianSoronellasBlogBundle:Comment c
+               JOIN c.post p
+             ORDER BY c.created_at DESC'
+        );
+
+        return $q->getResult();
+    }
 }

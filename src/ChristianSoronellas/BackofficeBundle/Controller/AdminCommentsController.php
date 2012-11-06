@@ -3,41 +3,41 @@
 namespace ChristianSoronellas\BackofficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use ChristianSoronellas\BlogBundle\Entity\Comment;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Comments controller.
- *
- * @Route("/admin/comments")
+ * AdminComments controller.
  */
 class AdminCommentsController extends Controller
 {
     /**
      * Lists all Comment entities.
-     *
-     * @Route("/", name="admin_comment")
-     * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ChristianSoronellasBlogBundle:Comment')->findAll();
+        $entities = $em->getRepository('ChristianSoronellasBlogBundle:Comment')->findAllOrderedByCreatedAt();
 
-        return array(
-            'comments' => $entities
+        return $this->container->get('templating')->renderResponse(
+            'ChristianSoronellasBackofficeBundle:AdminComments:index.html.twig',
+            array(
+                'comments' => $entities
+            )
         );
     }
 
-    /**
-     * @Route("/{id}/perform/{action}", name="admin_comment_action", requirements={"action" = "approve|refuse"})
-     */
-    public function actionAction(Comment $comment, $action)
+    public function actionAction($id, $action)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->container->get('doctrine')->getManager();
+
+        $comment = $em->getRepository('ChristianSoronellasBlogBundle:Comment')->findOneById($id);
+
+        if (!$comment) {
+            throw new NotFoundHttpException();
+        }
 
         if ('approve' == $action) {
             $comment->setState(Comment::STATE_APPROVED);
@@ -48,7 +48,7 @@ class AdminCommentsController extends Controller
         $em->persist($comment);
         $em->flush();
 
-        $this->getRequest()->getSession()->getFlashBag()->add('notice', 'Comment has been modified successfully!');
-        return $this->redirect($this->generateUrl('admin_comment'));
+        $this->container->get('request')->getSession()->getFlashBag()->add('notice', 'Comment has been modified successfully!');
+        return new RedirectResponse($this->container->get('router')->generate('admin_comment'));
     }
 }
