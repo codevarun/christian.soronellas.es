@@ -14,7 +14,7 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('name')
+            ->add('name')
             ->add('email')
             ->add('body', 'textarea', array('attr' => array('rows' => 10)))
         ;
@@ -28,6 +28,7 @@ class ContactType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $constraints = new Collection(array(
+            'name' => array(),
             'email' => array(
                 new NotBlank(),
                 new Email()

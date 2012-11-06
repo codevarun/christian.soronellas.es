@@ -55,28 +55,4 @@ class PostTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals(1, sizeof($this->_post->getApprovedComments()));
     }
-    
-    /**
-     * Tests that post can return only parent comments
-     */
-    public function testGetParentPostComments()
-    {
-        $comment = new Comment();
-        $childComment = new Comment();
-        
-        // Set the state needed
-        $comment->setState(Comment::STATE_APPROVED);
-        $childComment->setState(Comment::STATE_APPROVED);
-        
-        $childComment->setParentComment($comment);
-        $comment->addComment($childComment);
-        
-        $comment->setPost($this->_post);
-        $childComment->setPost($this->_post);
-        
-        $this->_post->addComment($comment);
-        $this->_post->addComment($childComment);
-        
-        $this->assertEquals(1, sizeof($this->_post->getParentComments()));
-    }
 }

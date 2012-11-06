@@ -19,8 +19,8 @@
                 <a class="brand" href="#">Christian Soronellas</a>
                 {% block navigation %}
                 <ul class="nav">
-                    <li class="active"><a href="#">Entradas</a></li>
-                    <li><a href="#">Tags</a></li>
+                    <li class="active"><a href="{{ path('admin_post') }}">Entradas</a></li>
+                    <li><a href="{{ path('admin_comment') }}">Comentarios</a></li>
                 </ul>
                 {% endblock %}
             </div>

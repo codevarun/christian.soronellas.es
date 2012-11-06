@@ -1,7 +1,6 @@
-{% set post_url = path('post', { 'year': post.createdAt|date('Y'), 'month': post.createdAt|date('m'), 'day': post.createdAt|date('d'), 'slug': post.slug } ) %}
-<article>
+<article class="post">
     <div class="page-header">
-        {% if showComments|default(false) %}<h1 property="dcterms:title">{% else %}<h2 property="dcterms:title">{% endif %}{{ post.title }}{% if showComments|default(false) %}</h1>{% else %} <small><a href="{{ post_url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">read entire article</a></small></h2>{% endif %}
+        {% if showComments|default(false) %}<h1 property="dcterms:title">{% else %}<h2 property="dcterms:title">{% endif %}{{ post.title }}{% if showComments|default(false) %}</h1>{% else %} <small><a href="{{ path('post', { 'year': post.createdAt|date('Y'), 'month': post.createdAt|date('m'), 'day': post.createdAt|date('d'), 'slug': post.slug } ) }}" rel="bookmark" title="Permanent Link to {{ post.title }}">read entire article</a></small></h2>{% endif %}
     </div>
 
     {{ post.body | raw }}

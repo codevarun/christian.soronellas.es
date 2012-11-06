@@ -1,11 +1,19 @@
-<div class="comment row">
-    <div class="span1 picture">
-        <img alt="gravatar of {{ comment.email }}" class="img-polaroid" src="{{ gravatar(comment.email) }}" />
+<div class="comment">
+    <div class="span2 picture">
+        <img alt="gravatar of {{ comment.email }}" class="img-polaroid" src="{{ gravatar(comment.email) }}" /><br />
+        <div>
+            <a class="btn btn-primary" href="{{ path('admin_comment_action', { 'id': comment.id, 'action': 'approve' }) }}">
+                <i class="icon-white icon-ok"></i>
+            </a>
+            &nbsp;<a class="btn btn-primary" href="{{ path('admin_comment_action', { 'id': comment.id, 'action': 'refuse' }) }}">
+                <i class="icon-white icon-remove"></i>
+            </a>
+        </div>
     </div>
-    <div class="span11">
+    <div class="span10">
         <blockquote>
             {{ comment.body }}
-            <small>by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }}</small>
+            <small>by {% if comment.website|length > 0 %}<a href="{{ comment.website }}" rel="nofollow external">{{ comment.name }}</a>{% else %}{{ comment.name }}{% endif %} on {{ comment.createdAt|date('d/m/Y') }} posted in  <a href="{{ path('post', { 'year': comment.post.createdat|date('Y'), 'month': comment.post.createdat|date('m'), 'day': comment.post.createdat|date('d'), 'slug': comment.post.slug }) }}">{{ comment.post.title }}</a></small>
         </blockquote>
     </div>
 </div>

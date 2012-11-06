@@ -8,12 +8,10 @@
         </div>
     </header>
     <section class="posts">
-        {% if posts|length > 0 %}
-            {% for post in posts %}
-                {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
-            {% endfor %}
+        {% for post in posts %}
+            {% include 'ChristianSoronellasBlogBundle:Posts:_post.html.twig' with { 'post': post } %}
         {% else %}
             <p>There are no posts!</p>
-        {% endif %}
+        {% endfor %}
     </section>
 {% endblock %}

@@ -7,26 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class PagesControllerTest extends WebTestCase
 {
     /**
-     * There has to be allways at least one link to the contact page
+     * Test for the RSS feed generation
      */
-    public function testPages()
+    public function testRssFeedGeneration()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/feed.rss');
 
-        $this->assertTrue($crawler->filter('#nav li')->count() >= 1);
-    }
-    
-    /**
-     * Tests the contents of a page
-     */
-    public function testPage()
-    {
-        $client = static::createClient();
-        
-        $crawler = $client->request('GET', '/pages/me');
-        
-        $this->assertEquals(1, $crawler->filter('#content:contains("Me")')->count());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals('application/rss+xml', $client->getResponse()->headers->get('content-type'));
     }
 }

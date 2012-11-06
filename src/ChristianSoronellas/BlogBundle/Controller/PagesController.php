@@ -12,31 +12,20 @@ namespace ChristianSoronellas\BlogBundle\Controller;
  */
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
- * Description of PagesController
+ * A controller to handle generic pages
  *
  * @author Christian Soronellas <christian@sistemes-cayman.es>
  */
-class PagesController extends Controller
+class PagesController extends ContainerAware
 {
     /**
-     * @Route("/pages", name="pages")
-     * @Template()
-     */
-    public function pagesAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/feed.rss", name="rss")
+     * Generates an RSS feed
+     *
+     * @return Response
      */
     public function rssAction()
     {
@@ -56,15 +45,16 @@ class PagesController extends Controller
             ->setDescription('Christian Soronellas Blog Feed')
         ;
 
-        $postsRepository = $this->getDoctrine()->getRepository('ChristianSoronellasBlogBundle:Post');
+        $em = $this->container->get('doctrine')->getManager();
+        $postsRepository = $em->getRepository('ChristianSoronellasBlogBundle:Post');
 
-        $posts = $postsRepository->findAllOrderedByDate();
+        $posts = $postsRepository->findPublishedOrderedByCreatedAt();
 
         foreach ($posts as $post) {
             $entry = $feed->createEntry();
             $entry
                 ->setTitle($post->getTitle())
-                ->setLink($this->generateUrl('post', array('year' => $post->getCreatedAt()->format('Y'), 'month' => $post->getCreatedAt()->format('m'), 'day' => $post->getCreatedAt()->format('d'), 'slug' => $post->getSlug())))
+                ->setLink($this->container->get('router')->generate('post', array('year' => $post->getCreatedAt()->format('Y'), 'month' => $post->getCreatedAt()->format('m'), 'day' => $post->getCreatedAt()->format('d'), 'slug' => $post->getSlug())))
                 ->addAuthor(array('name' => 'Christian Soronellas', 'email' => 'theunic@gmail.com', 'uri' => 'http://christian.soronellas.es'))
                 ->setDateModified($post->getUpdatedAt())
                 ->setDateCreated($post->getCreatedAt())

@@ -28,7 +28,9 @@
         "zendframework/zend-feed": "2.0.*"
     },
     "require-dev": {
-        "mockery/mockery": "dev-master"
+        "phpunit/phpunit": "3.7.*",
+        "mockery/mockery": "dev-master",
+        "fzaninotto/faker": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

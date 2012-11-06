@@ -1,20 +1,54 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="christian_soronellas_blog_feed_importer.example.class">ChristianSoronellas\Blog\Bundle\FeedImporterBundle\Example</parameter>
+        <parameter key="christian_soronellas.blog_bundle.form.contact.class">ChristianSoronellas\BlogBundle\Form\ContactType</parameter>
+        <parameter key="christian_soronellas.blog_bundle.form.comment.class">ChristianSoronellas\BlogBundle\Form\CommentType</parameter>
+        <parameter key="christian_soronellas.blog_bundle.controller.posts_controller.class">ChristianSoronellas\BlogBundle\Controller\PostsController</parameter>
+        <parameter key="christian_soronellas.blog_bundle.controller.pages_controller.class">ChristianSoronellas\BlogBundle\Controller\PagesController</parameter>
+        <parameter key="christian_soronellas.blog_bundle.controller.contact_controller.class">ChristianSoronellas\BlogBundle\Controller\ContactController</parameter>
     </parameters>
 
     <services>
-        <service id="christian_soronellas_blog_feed_importer.example" class="%christian_soronellas_blog_feed_importer.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <!-- Form types -->
+        <service id="christian_soronellas.blog_bundle.form.contact.type" class="%christian_soronellas.blog_bundle.form.contact.class%">
+            <tag name="form.type" alias="christiansoronellas_blogbundle_contacttype" />
+        </service>
+
+        <service id="christian_soronellas.blog_bundle.form.comment.type" class="%christian_soronellas.blog_bundle.form.comment.class%">
+            <tag name="form.type" alias="christiansoronellas_blogbundle_commenttype" />
+        </service>
+
+        <!-- Forms -->
+        <service id="christian_soronellas.blog_bundle.form.contact"
+                 class="Symfony\Component\Form\Form"
+                 factory-service="form.factory"
+                 factory-method="createNamed">
+            <argument>christiansoronellas_blogbundle_contacttype</argument>
+            <argument>christiansoronellas_blogbundle_contacttype</argument>
+        </service>
+
+        <service id="christian_soronellas.blog_bundle.form.comment"
+                 class="Symfony\Component\Form\Form"
+                 factory-service="form.factory"
+                 factory-method="createNamed">
+            <argument>christiansoronellas_blogbundle_commenttype</argument>
+            <argument>christiansoronellas_blogbundle_commenttype</argument>
+        </service>
+
+        <!-- Repositories -->
+        <service id="abstract_repository"
+                 class="Doctrine\ORM\EntityRepository"
+                 abstract="true"
+                 factory-service="doctrine.orm.entity_manager"
+                 factory-method="getRepository" />
+
+        <service id="christian_soronellas.blog_bundle.entity.post_repository"
+                 parent="abstract_repository">
+            <argument>ChristianSoronellasBlogBundle:Post</argument>
         </service>
     </services>
-    -->
 </container>

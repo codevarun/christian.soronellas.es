@@ -4,8 +4,7 @@ christian_soronellas_backoffice:
     prefix:   /
 
 ChristianSoronellasBlogBundle:
-    resource: "@ChristianSoronellasBlogBundle/Controller/"
-    type:     annotation
+    resource: "@ChristianSoronellasBlogBundle/Resources/config/routes.xml"
     prefix:   /
 
 login:

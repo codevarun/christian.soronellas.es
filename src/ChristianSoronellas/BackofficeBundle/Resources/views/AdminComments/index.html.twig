@@ -22,18 +22,14 @@
             </thead>
             <tbody>
             {% for entity in comments %}
-                <tr class="{% if comment.state == 1 %}warning{% elseif comment.state == 2 %}success{% elseif comment.state ==  %}">
+                <tr class="{% if entity.state == 1 %}warning{% elseif entity.state != 2 %}error{% endif %}">
                     <td>
-
+                        {% include 'ChristianSoronellasBackofficeBundle:AdminComments:comment.html.twig' with { 'comment': entity } %}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        
-        <div class="well">
-            <a href="{{ path('admin_post_new') }}" class="btn btn-large btn-primary">Crear nueva entrada</a>
-        </div>
     </div>
 </div>
 {% endblock %}
