@@ -190,6 +190,8 @@ class Post
     public function setCommentsEnabled($commentsEnabled)
     {
         $this->commentsEnabled = $commentsEnabled;
+
+        return $this;
     }
 
     /**

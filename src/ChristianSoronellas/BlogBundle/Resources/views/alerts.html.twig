@@ -1,9 +1,28 @@
-{% macro show_notice() %}
-{% if app.session.hasFlash('notice') %}
+{% macro show_messages() %}
+    {{ _self.show_notices() }}
+    {{ _self.show_warnings() }}
+{% endmacro %}
+
+{% macro show_notices() %}
+{% if app.session.flashbag.has('notice') %}
 <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert">x</button>
     <h4>Good!</h4>
-    {{ app.session.flash('notice') }}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro show_warnings() %}
+{% if app.session.flashbag.has('warning') %}
+<div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <h4>Alert!</h4>
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
 </div>
 {% endif %}
 {% endmacro %}

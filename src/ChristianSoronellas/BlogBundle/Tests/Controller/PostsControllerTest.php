@@ -44,13 +44,47 @@ class PostsControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/2011/12/09/test1');
         
         $form = $crawler->selectButton('Comment')->form(array(
-            'christiansoronellas_blogbundle_commenttype[name]'  => $faker->name,
-            'christiansoronellas_blogbundle_commenttype[email]' => $faker->email,
-            'christiansoronellas_blogbundle_commenttype[body]'  => $faker->text
+            'christiansoronellas_blogbundle_commenttype[name]'      => $faker->name,
+            'christiansoronellas_blogbundle_commenttype[email]'     => $faker->email,
+            'christiansoronellas_blogbundle_commenttype[body]'      => $faker->text,
+            'christiansoronellas_blogbundle_commenttype[website]'   => $faker->url
         ));
         $crawler = $client->submit($form);
         
         $this->assertCount(1, $crawler->filter('.alert.alert-success'));
         $this->assertCount(1, $crawler->filter('.alert.alert-success:contains("Your comment has been saved succesfully!")'));
+    }
+
+    public function testNonExistingPostShoudReturn404()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/2011/12/09/asfknsadljfas');
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    public function testWhenTryingToAccessToTheCommentsSubmitUrlByGetA400ShouldBeThrown()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/post/test1/comment');
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testWhenCommentsAreDisableAMessageShouldBeShown()
+    {
+        $client = static::createClient();
+        $container = $client->getContainer();
+        $em = $container->get('doctrine')->getManager();
+
+        $post = $em->getRepository('ChristianSoronellasBlogBundle:Post')->findOneBySlug('test3');
+
+        $client->followRedirects();
+        $params = array(
+            'slug'      => $post->getSlug()
+        );
+
+        $crawler = $client->request('POST', $container->get('router')->generate('post_comment', $params));
+        $this->assertCount(1, $crawler->filter('.alert:contains("Comments on this entry are disabled!")'));
     }
 }

@@ -62,23 +62,25 @@ class PostsController extends ContainerAware
      */
     public function commentAction($slug)
     {
-        if (!$this->container->get('request')->isMethod('POST')) {
+        $request = $this->container->get('request');
+
+        if (!$request->isMethod('POST')) {
             throw new HttpException(400);
         }
 
         $post = $this->container->get('christian_soronellas.blog_bundle.entity.post_repository')->findOneBySlug($slug);
 
         if (false === $post->getCommentsEnabled()) {
-            $this->get('session')->setFlash('notice', 'Comments on this entry are disabled!');
+            $request->getSession()->getFlashBag()->add('warning', 'Comments on this entry are disabled!');
 
             return new RedirectResponse(
                 $this->container->get('router')->generate(
                     'post',
                     array(
-                            'day'   => $post->getCreatedAt()->format('d'),
-                            'month' => $post->getCreatedAt()->format('m'),
-                            'year'  => $post->getCreatedAt()->format('Y'),
-                            'slug'  => $post->getSlug()
+                        'day'   => $post->getCreatedAt()->format('d'),
+                        'month' => $post->getCreatedAt()->format('m'),
+                        'year'  => $post->getCreatedAt()->format('Y'),
+                        'slug'  => $post->getSlug()
                     )
                 )
             );

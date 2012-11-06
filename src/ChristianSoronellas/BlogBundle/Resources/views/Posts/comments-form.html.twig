@@ -1,9 +1,9 @@
 {% import 'ChristianSoronellasBlogBundle::alerts.html.twig' as alerts %}
 
+{{ alerts.show_messages() }}
+
 {% if post.commentsEnabled %}
 <h3>Leave your comment<a name="comments"></a></h3>
-
-{{ alerts.show_notice }}
 
 <form class="form-horizontal" action="{{ path('post_comment', { 'slug': post.slug }) }}" method="post" novalidate="novalidate" {{ form_enctype(form) }}>
 

@@ -47,6 +47,19 @@ class LoadPostsData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
 
         $this->addReference('post2', $post);
+
+        $post = new Post();
+        $post->setTitle('Test3');
+        $post->setBody('<p>TestBody3</p>');
+        $post->setCreatedAt(new \DateTime());
+        $post->setUpdatedAt(new \DateTime());
+        $post->setState(Post::STATE_COMPLETE);
+        $post->setCommentsEnabled(false);
+
+        $manager->persist($post);
+        $manager->flush();
+
+        $this->addReference('post3', $post);
     }
 
     public function getOrder()
