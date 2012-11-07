@@ -4,5 +4,6 @@
 /app/logs/*
 /vendor/
 /app/config/parameters.yml
+/app/config/deploy.rb
 /app/phpunit.xml
 web/components
