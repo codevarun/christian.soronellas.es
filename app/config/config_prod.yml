@@ -17,7 +17,3 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
-
-parameters:
-    router.options.matcher.cache_class: ~
-    router.options.matcher_class: Symfony\Component\Routing\Matcher\ApacheUrlMatcher

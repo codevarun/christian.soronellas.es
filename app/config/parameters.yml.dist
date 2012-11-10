@@ -21,3 +21,5 @@ parameters:
     akismet_blogurl   : "http://your.blog.com"
                       :
     contact_email     : "your@email.com"
+
+    admin_password    : "p4ssw0rd"

@@ -3,7 +3,8 @@ imports:
     - { resource: security.yml }
 
 framework:
-    #esi:             ~
+    esi:
+        enabled:     true
     translator:      { fallback: %locale% }
     secret:          %secret%
     router:
@@ -12,7 +13,15 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:
+        engines: ['twig']
+        assets_base_urls:
+            http:
+                - http://content1.christian.soronellas.es
+                - http://content2.christian.soronellas.es
+                - http://content3.christian.soronellas.es
+        assets_version_format: v%%2$s/%%1$s
+        assets_version: 1
     default_locale: %locale%
     session: ~
 

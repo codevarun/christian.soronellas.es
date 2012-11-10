@@ -7,3 +7,4 @@
 /app/config/deploy.rb
 /app/phpunit.xml
 web/components
+/.rsync_cache/
