@@ -1,5 +1,5 @@
 {
-    "hash": "921f545c7508bf5f55011d4a76132053",
+    "hash": "4c213dc7ffe99ca384ac153b6f6bd038",
     "packages": [
         {
             "name": "doctrine/common",
@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineBundle.git",
-                "reference": "a3b99ec049b7c488c70b8776a67c594e6ddf54cd"
+                "reference": "1cfd5691283f4b32cfea87e8c8e28d502902c825"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineBundle/zipball/a3b99ec049b7c488c70b8776a67c594e6ddf54cd",
-                "reference": "a3b99ec049b7c488c70b8776a67c594e6ddf54cd",
+                "url": "https://github.com/doctrine/DoctrineBundle/archive/1cfd5691283f4b32cfea87e8c8e28d502902c825.zip",
+                "reference": "1cfd5691283f4b32cfea87e8c8e28d502902c825",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
-            "time": "1350120716",
+            "time": "1352365569",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -874,12 +874,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "685b7381241fb13c47c994fe5d2e8c4964021f40"
+                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/685b7381241fb13c47c994fe5d2e8c4964021f40",
-                "reference": "685b7381241fb13c47c994fe5d2e8c4964021f40",
+                "url": "https://github.com/kriswallsmith/assetic/archive/d6203098559cf9fc90e2890c10533d0adad33bd0.zip",
+                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0",
                 "shasum": ""
             },
             "require": {
@@ -900,7 +900,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "1351610079",
+            "time": "1352285252",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1703,18 +1703,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "abec35b833abfce5eb0ac7ce2bf2bf3462a5bebf"
+                "reference": "1a10ea2fbb2291142b4ee03665591c0762315204"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/archive/abec35b833abfce5eb0ac7ce2bf2bf3462a5bebf.zip",
-                "reference": "abec35b833abfce5eb0ac7ce2bf2bf3462a5bebf",
+                "url": "https://github.com/fabpot/Twig/archive/1a10ea2fbb2291142b4ee03665591c0762315204.zip",
+                "reference": "1a10ea2fbb2291142b4ee03665591c0762315204",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1352101924",
+            "time": "1352366711",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1871,6 +1871,45 @@
             }
         },
         {
+            "name": "zendframework/zend-http",
+            "version": "2.0.3",
+            "target-dir": "Zend/Http",
+            "dist": {
+                "type": "zip",
+                "url": "http://packages.zendframework.com/composer/Zend_Http-2.0.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zend-loader": "self.version",
+                "zendframework/zend-stdlib": "self.version",
+                "zendframework/zend-uri": "self.version"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Zend\\Http\\": ""
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides an easy interface for preforming Hyper-Text Transfer Protocol (HTTP) requests",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "zf2",
+                "http"
+            ],
+            "support": {
+                "email": "fw-general-subscribe@lists.zend.com",
+                "irc": "irc://irc.freenode.net/zftalk",
+                "issues": "https://github.com/zendframework/zf2/issues",
+                "source": "https://github.com/zendframework/zf2"
+            }
+        },
+        {
             "name": "zendframework/zend-i18n",
             "version": "2.0.3",
             "target-dir": "Zend/I18n",
@@ -1901,6 +1940,45 @@
             "keywords": [
                 "zf2",
                 "i18n"
+            ],
+            "support": {
+                "email": "fw-general-subscribe@lists.zend.com",
+                "irc": "irc://irc.freenode.net/zftalk",
+                "issues": "https://github.com/zendframework/zf2/issues",
+                "source": "https://github.com/zendframework/zf2"
+            }
+        },
+        {
+            "name": "zendframework/zend-loader",
+            "version": "2.0.3",
+            "target-dir": "Zend/Loader",
+            "dist": {
+                "type": "zip",
+                "url": "http://packages.zendframework.com/composer/Zend_Loader-2.0.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "zendframework/zend-stdlib": "Zend\\Stdlib component"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Zend\\Loader\\": ""
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": " ",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "zf2",
+                "loader"
             ],
             "support": {
                 "email": "fw-general-subscribe@lists.zend.com",
@@ -2115,18 +2193,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker",
-                "reference": "v1.1.0"
+                "reference": "42ad8700ed3a1fd923b237feccfbe4476b703303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fzaninotto/Faker/zipball/v1.1.0",
-                "reference": "v1.1.0",
+                "url": "https://github.com/fzaninotto/Faker/archive/42ad8700ed3a1fd923b237feccfbe4476b703303.zip",
+                "reference": "42ad8700ed3a1fd923b237feccfbe4476b703303",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1351503126",
+            "time": "1352327730",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2449,12 +2527,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sebastianbergmann/phpunit.git",
-                "reference": "eecfebdcd0b23481bb6541d5bf83f4bce84897ab"
+                "reference": "2afd4d762632085281335feca8036a1ab8c0b231"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sebastianbergmann/phpunit/zipball/eecfebdcd0b23481bb6541d5bf83f4bce84897ab",
-                "reference": "eecfebdcd0b23481bb6541d5bf83f4bce84897ab",
+                "url": "https://github.com/sebastianbergmann/phpunit/archive/2afd4d762632085281335feca8036a1ab8c0b231.zip",
+                "reference": "2afd4d762632085281335feca8036a1ab8c0b231",
                 "shasum": ""
             },
             "require": {
@@ -2476,7 +2554,7 @@
                 "ext-tokenizer": "*",
                 "phpunit/php-invoker": ">=1.1.0"
             },
-            "time": "1351707424",
+            "time": "1352231378",
             "bin": [
                 "composer/bin/phpunit"
             ],
