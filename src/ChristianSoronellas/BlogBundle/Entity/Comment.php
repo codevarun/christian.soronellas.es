@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="ChristianSoronellas\BlogBundle\Entity\CommentRepository")
- * @ORM\HasLifeCycleCallbacks
+ * @ORM\HasLifecycleCallbacks
  */
 class Comment
 {
