@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-{% stylesheets '@ChristianSoronellasBlogBundle/Resources/public/css/*.css' %}
+{% stylesheets '@ChristianSoronellasBlogBundle/Resources/public/css/*.css' filter='cssrewrite,uglifycss' %}
 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
 {% endstylesheets %}
 {% endblock %}
@@ -50,7 +50,7 @@
 {% block javascripts %}
 {% javascripts
     'components/jquery/jquery.js'
-    'components/bootstrap/js/*.js' %}
+    'components/bootstrap/js/*.js' filter='uglifyjs' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}

@@ -3,13 +3,19 @@
 {% block stylesheets %}
     {% stylesheets
         '@ChristianSoronellasBlogBundle/Resources/public/css/*.css'
+        filters='?cssrewrite,?uglifycss'
     %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
 {% endblock %}
 
 {% block headScripts %}
-<script type="text/javascript" src="{{ asset('/components/html5shiv/src/html5shiv.js') }}"></script>
+    {% javascripts
+        'components/html5shiv/src/html5shiv.js'
+        filter='?yuglifyjs'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
@@ -55,6 +61,7 @@
     {% javascripts
         'components/jquery/*.js'
         'components/bootstrap/js/*.js'
+        filter='?yuglifyjs'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

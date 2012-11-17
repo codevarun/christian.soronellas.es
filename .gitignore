@@ -4,6 +4,7 @@
 /app/logs/*
 /vendor/
 /app/config/parameters.yml
-/app/config/deploy.rb
 /app/phpunit.xml
 /.rsync_cache/
+/web/components/
+/app/config/deploy.rb
